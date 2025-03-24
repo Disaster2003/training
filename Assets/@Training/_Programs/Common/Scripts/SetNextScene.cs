@@ -11,9 +11,7 @@ public class SetNextScene : MonoBehaviour
     GameManager.StateScene State_Scene;
 
     void Start()
-    {
-        BTNNextScene.onClick.AddListener(OnStartSelectScene);
-    }
+        => BTNNextScene.onClick.AddListener(OnStartSelectScene);
 
     /// <summary>
     /// 画面遷移を開始する
