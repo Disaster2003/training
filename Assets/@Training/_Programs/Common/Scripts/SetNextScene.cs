@@ -10,8 +10,7 @@ public class SetNextScene : MonoBehaviour
     [SerializeField, Header("次に遷移したい画面")]
     GameManager.StateScene State_Scene;
 
-    void Start()
-        => BTNNextScene.onClick.AddListener(OnStartSelectScene);
+    void Start() => BTNNextScene.onClick.AddListener(OnStartSelectScene);
 
     /// <summary>
     /// 画面遷移を開始する
