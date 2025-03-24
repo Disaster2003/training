@@ -134,7 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c61bff4ce21900469bd87c7ee2b51b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State_scene: 1
+  BTNNextScene: {fileID: 7609391858067825679}
+  State_Scene: 0
 --- !u!1 &8021378453144626516
 GameObject:
   m_ObjectHideFlags: 0
