@@ -6,17 +6,13 @@ using UnityEngine.UI;
 /// </summary>
 public class SetNextScene : MonoBehaviour
 {
-    Button btnNextScene;
+    [SerializeField] Button BTNNextScene; // 画面遷移アクション用ボタン
     [SerializeField, Header("次に遷移したい画面")]
     GameManager.StateScene State_Scene;
 
     void Start()
     {
-        // コンポーネントの取得
-        btnNextScene = GetComponent<Button>();
-
-        // OnClickイベントに登録
-        btnNextScene.onClick.AddListener(OnStartSelectScene);
+        BTNNextScene.onClick.AddListener(OnStartSelectScene);
     }
 
     /// <summary>
