@@ -29,10 +29,8 @@ public class HurdleComponent : MonoBehaviour
     [SerializeField, Header("自由落下用")]
     Rigidbody2D RB2D;
 
-    /// <summary>
-    /// 落下するまでの時間
-    /// </summary>
-    public float IntervalMoveStart;
+    [SerializeField, Header("落下するまでの時間")]
+    float IntervalMoveStart;
 
     /// <summary>
     /// 開始時のy座標
