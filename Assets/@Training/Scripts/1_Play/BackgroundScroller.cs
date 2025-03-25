@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// 背景のスクロールクラス
+/// </summary>
 public class BackgroundScroller : MonoBehaviour
 {
     [SerializeField, Header("背景のマテリアル取得用")]
