@@ -6,18 +6,40 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    static GameManager instance; // シングルトン用インスタンス
+    /// <summary>
+    /// シングルトン用インスタンス
+    /// </summary>
+    static GameManager instance;
+
     /// <summary>
     /// インスタンスを取得する
     /// </summary>
     public static GameManager Instance { get => instance; }
 
+    /// <summary>
+    /// 画面の状態
+    /// </summary>
     public enum StateScene
     {
-        Title,  // タイトル画面
-        Play,   // プレイ画面
-        Result, // 結果画面
+        /// <summary>
+        /// タイトル画面
+        /// </summary>
+        Title,
+
+        /// <summary>
+        /// プレイ画面
+        /// </summary>
+        Play,
+
+        /// <summary>
+        /// 結果画面
+        /// </summary>
+        Result,
     }
+
+    /// <summary>
+    /// 画面の状態を保持する変数
+    /// </summary>
     StateScene stateScene;
 
     void Start()
