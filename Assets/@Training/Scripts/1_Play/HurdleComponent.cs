@@ -11,7 +11,7 @@ public class HurdleComponent : MonoBehaviour
 
     [SerializeField, Header("自由落下用")]
     Rigidbody2D RB2D;
-    public float IntervalDrop; // 落下するまでの時間
+    public float IntervalMoveStart; // 落下するまでの時間
 
     float POSStart_y; // 開始時のy座標
     [SerializeField, Header("sin波の幅")]
@@ -34,8 +34,8 @@ public class HurdleComponent : MonoBehaviour
     void Move()
     {
         // 移動開始するまで、インターバルを持たせる
-        if (IntervalDrop > 0f) {
-            IntervalDrop -= Time.deltaTime;
+        if (IntervalMoveStart > 0f) {
+            IntervalMoveStart -= Time.deltaTime;
             return;
         }
 
