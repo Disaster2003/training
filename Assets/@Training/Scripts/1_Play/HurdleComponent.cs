@@ -1,19 +1,23 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// 障害物クラス
+/// </summary>
 public class HurdleComponent : MonoBehaviour
 {
     public enum Job
     {
         Drop,    // 自由落下運動
         SinWave, // sin波移動
-    }
+    };
     public Job JobMove; // 移動の役割
 
     [SerializeField, Header("自由落下用")]
     Rigidbody2D RB2D;
     public float IntervalMoveStart; // 落下するまでの時間
 
-    float POSStart_y; // 開始時のy座標
+    float POSStartY; // 開始時のy座標
+    float sin; // sin値
     [SerializeField, Header("sin波の幅")]
     float WidthSin;
     [SerializeField, Header("sin波の周期")]
@@ -25,12 +29,15 @@ public class HurdleComponent : MonoBehaviour
         RB2D.gravityScale = 0f;
 
         // 開始位置の確定
-        POSStart_y = transform.position.y;
+        POSStartY = transform.position.y;
     }
 
     void Update()
         => Move();
 
+    /// <summary>
+    /// 役割ごとに移動処理を行う
+    /// </summary>
     void Move()
     {
         // 移動開始するまで、インターバルを持たせる
@@ -41,7 +48,9 @@ public class HurdleComponent : MonoBehaviour
 
         switch (JobMove) {
             case Job.Drop:
-                if (RB2D.gravityScale == 1f) return;
+                if (RB2D.gravityScale == 1f) {
+                    return;
+                }
 
                 // 自由落下運動開始
                 RB2D.gravityScale = 1f;
@@ -49,13 +58,8 @@ public class HurdleComponent : MonoBehaviour
             case Job.SinWave:
                 // sin波移動中
                 transform.Translate(Vector3.left * Time.deltaTime);
-                float sin = WidthSin * Mathf.Sin(SpeedSin * Time.time);
-                transform.position =
-                    new Vector3
-                    (
-                        transform.position.x,
-                        POSStart_y + sin
-                    );
+                sin = WidthSin * Mathf.Sin(SpeedSin * Time.time);
+                transform.position = new Vector3(transform.position.x, POSStartY + sin);
                 break;
         }
     }
