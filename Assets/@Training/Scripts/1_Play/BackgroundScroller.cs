@@ -1,52 +1,52 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class BackgroundScroller : MonoBehaviour
 {
-    [SerializeField, Header("”wŒi‚Ìƒ}ƒeƒŠƒAƒ‹æ“¾—p")]
+    [SerializeField, Header("èƒŒæ™¯ã®ãƒãƒ†ãƒªã‚¢ãƒ«å–å¾—ç”¨")]
     SpriteRenderer Background;
 
     /// <summary>
-    /// offset‚ÌãŒÀ’l
+    /// offsetã®ä¸Šé™å€¤
     /// </summary>
     const float OffsetMax = 1f;
 
-    [SerializeField, Header("’x‚­‚·‚é”{—¦(¬”“_’PˆÊ‚Å‹L“ü)")]
+    [SerializeField, Header("é…ãã™ã‚‹å€ç‡(å°æ•°ç‚¹å˜ä½ã§è¨˜å…¥)")]
     float SlowMagnification;
 
     /// <summary>
-    /// ƒXƒNƒ[ƒ‹•ûŒü‚ğ¦‚·—ñ‹“Œ^
+    /// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«æ–¹å‘ã‚’ç¤ºã™åˆ—æŒ™å‹
     /// </summary>
     public enum ScrollDirection
     {
         /// <summary>
-        /// ã•ûŒü
+        /// ä¸Šæ–¹å‘
         /// </summary>
         Up,
 
         /// <summary>
-        /// ‰º•ûŒü
+        /// ä¸‹æ–¹å‘
         /// </summary>
         Down,
 
         /// <summary>
-        /// ¶•ûŒü
+        /// å·¦æ–¹å‘
         /// </summary>
         Left,
 
         /// <summary>
-        /// ‰E•ûŒü
+        /// å³æ–¹å‘
         /// </summary>
         Right,
     }
 
     /// <summary>
-    /// ƒXƒNƒ[ƒ‹•ûŒü‚ğ•Û‚·‚é•Ï”
+    /// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«æ–¹å‘ã‚’ä¿æŒã™ã‚‹å¤‰æ•°
     /// </summary>
     public ScrollDirection ScrollDIR;
 
     void Update()
     {
-        // ”wŒi‚ÌƒXƒNƒ[ƒ‹•ûŒü‚ğŒˆ’è
+        // èƒŒæ™¯ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«æ–¹å‘ã‚’æ±ºå®š
         Vector2 scrollVector;
         switch(ScrollDIR) {
         default:
@@ -70,9 +70,9 @@ public class BackgroundScroller : MonoBehaviour
     }
 
     /// <summary>
-    /// ”wŒi‚ğƒXƒNƒ[ƒ‹‚·‚é
+    /// èƒŒæ™¯ã‚’ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹
     /// </summary>
-    /// <param name="_scrollVector">”wŒi‚ğƒXƒNƒ[ƒ‹‚·‚éŒü‚«</param>
+    /// <param name="_scrollVector">èƒŒæ™¯ã‚’ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹å‘ã</param>
     void ScrollBackground(Vector2 _scrollVector)
         => Background.material.SetTextureOffset("_MainTex", _scrollVector * Mathf.Repeat(SlowMagnification * Time.time, OffsetMax));
 }
