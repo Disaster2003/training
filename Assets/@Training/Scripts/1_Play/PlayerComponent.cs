@@ -15,7 +15,7 @@ public class PlayerComponent : MonoBehaviour
 
     int hitPoint; // プレイヤーの体力
     [SerializeField, Header("最大体力")]
-    int hitPointMax;
+    int HitPointMax;
 
     void Start()
     {
@@ -33,7 +33,7 @@ public class PlayerComponent : MonoBehaviour
 
         // 状態の初期化
         inputMove = Vector3.zero;
-        hitPoint = hitPointMax;
+        hitPoint = HitPointMax;
     }
 
     void Update() => Move();
