@@ -45,7 +45,7 @@ public class PlayerComponent : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy")) {
+        if (collision.CompareTag("Hurdle")) {
             hitPoint--;
 
             if (hitPoint <= 0) {
