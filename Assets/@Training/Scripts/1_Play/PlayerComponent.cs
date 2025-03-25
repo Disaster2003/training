@@ -6,14 +6,27 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerComponent : MonoBehaviour
 {
-    InputSystem_Actions inputSystem_Actions; // インプットアクションを定義
-    Vector3 inputMove; // 押下移動量
+    /// <summary>
+    /// インプットアクションを定義
+    /// </summary>
+    InputSystem_Actions inputSystem_Actions;
+
+    /// <summary>
+    /// 押下移動量
+    /// </summary>
+    Vector3 inputMove;
+    
     [SerializeField, Header("座標を制限する絶対値")]
     Vector2 POSLimit;
+
     [SerializeField, Header("移動速度")]
     float SpeedMove;
 
-    int hitPoint; // プレイヤーの体力
+    /// <summary>
+    /// プレイヤーの体力
+    /// </summary>
+    int hitPoint;
+
     [SerializeField, Header("最大体力")]
     int HitPointMax;
 
@@ -45,7 +58,7 @@ public class PlayerComponent : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy")) {
+        if (collision.CompareTag("Hurdle")) {
             hitPoint--;
 
             if (hitPoint <= 0) {
