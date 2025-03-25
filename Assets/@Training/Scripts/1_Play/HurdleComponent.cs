@@ -13,7 +13,7 @@ public class HurdleComponent : MonoBehaviour
     Rigidbody2D RB2D;
     public float IntervalDrop; // 落下するまでの時間
 
-    float POSStart_y;　// 開始時のy座標
+    float POSStart_y; // 開始時のy座標
     [SerializeField, Header("sin波の幅")]
     float WidthSin;
     [SerializeField, Header("sin波の周期")]
