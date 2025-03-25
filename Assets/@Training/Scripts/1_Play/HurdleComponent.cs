@@ -5,6 +5,9 @@
 /// </summary>
 public class HurdleComponent : MonoBehaviour
 {
+    /// <summary>
+    /// 移動の役割
+    /// </summary>
     public enum Job
     {
         /// <summary>
@@ -19,7 +22,7 @@ public class HurdleComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// 移動の役割
+    /// 移動の役割を保持する変数
     /// </summary>
     public Job JobMove;
 
@@ -79,7 +82,9 @@ public class HurdleComponent : MonoBehaviour
         case Job.SinWave:
             // sin波移動中
             transform.Translate(Vector3.left * Time.deltaTime);
-            transform.position = new Vector3(transform.position.x, POSStartY + WidthSin * Mathf.Sin(SpeedSin * Time.time));
+            transform.position = new Vector3(
+                transform.position.x,
+                POSStartY + (WidthSin * Mathf.Sin(SpeedSin * Time.time)));
             break;
         }
     }

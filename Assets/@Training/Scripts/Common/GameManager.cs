@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static GameManager Instance { get => instance; }
 
+    /// <summary>
+    /// 画面の状態
+    /// </summary>
     public enum StateScene
     {
         /// <summary>
@@ -34,6 +37,9 @@ public class GameManager : MonoBehaviour
         Result,
     }
 
+    /// <summary>
+    /// 画面の状態を保持する変数
+    /// </summary>
     StateScene stateScene;
 
     void Start()
