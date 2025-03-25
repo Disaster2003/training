@@ -36,13 +36,12 @@ public class PlayerComponent : MonoBehaviour
         hitPoint = HitPointMax;
     }
 
-    void Update() => Move();
+    void Update()
+        => Move();
 
+    // インプットアクションを他の画面で呼び出さないように無効化
     void OnDestroy()
-    {
-        // インプットアクションを他の画面で呼び出さないように無効化
-        inputSystem_Actions.Disable();
-    }
+        => inputSystem_Actions.Disable();
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -57,11 +56,12 @@ public class PlayerComponent : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 押下状態 / スティックの倒れ具合を取得
+    /// </summary>
+    /// <param name="context">WASD, ↑↓←→, スティックの入力値</param>
     void OnMove(InputAction.CallbackContext context)
-    {
-        // 押下状態 / スティックの倒れ具合を取得
-        inputMove = context.ReadValue<Vector2>();
-    }
+        => inputMove = context.ReadValue<Vector2>();
 
     void Move()
     {
