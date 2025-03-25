@@ -7,19 +7,38 @@ public class HurdleComponent : MonoBehaviour
 {
     public enum Job
     {
-        Drop,    // 自由落下運動
-        SinWave, // sin波移動
-    };
-    public Job JobMove; // 移動の役割
+        /// <summary>
+        /// 自由落下運動
+        /// </summary>
+        Drop,
+
+        /// <summary>
+        /// sin波移動
+        /// </summary>
+        SinWave,
+    }
+
+    /// <summary>
+    /// 移動の役割
+    /// </summary>
+    public Job JobMove;
 
     [SerializeField, Header("自由落下用")]
     Rigidbody2D RB2D;
-    public float IntervalMoveStart; // 落下するまでの時間
 
-    float POSStartY; // 開始時のy座標
-    float sin; // sin値
+    /// <summary>
+    /// 落下するまでの時間
+    /// </summary>
+    public float IntervalMoveStart;
+
+    /// <summary>
+    /// 開始時のy座標
+    /// </summary>
+    float POSStartY;
+
     [SerializeField, Header("sin波の幅")]
     float WidthSin;
+
     [SerializeField, Header("sin波の周期")]
     float SpeedSin;
 
@@ -58,8 +77,7 @@ public class HurdleComponent : MonoBehaviour
             case Job.SinWave:
                 // sin波移動中
                 transform.Translate(Vector3.left * Time.deltaTime);
-                sin = WidthSin * Mathf.Sin(SpeedSin * Time.time);
-                transform.position = new Vector3(transform.position.x, POSStartY + sin);
+                transform.position = new Vector3(transform.position.x, POSStartY + WidthSin * Mathf.Sin(SpeedSin * Time.time));
                 break;
         }
     }

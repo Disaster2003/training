@@ -6,7 +6,11 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    static GameManager instance; // シングルトン用インスタンス
+    /// <summary>
+    /// シングルトン用インスタンス
+    /// </summary>
+    static GameManager instance;
+
     /// <summary>
     /// インスタンスを取得する
     /// </summary>
@@ -14,10 +18,22 @@ public class GameManager : MonoBehaviour
 
     public enum StateScene
     {
-        Title,  // タイトル画面
-        Play,   // プレイ画面
-        Result, // 結果画面
+        /// <summary>
+        /// タイトル画面
+        /// </summary>
+        Title,
+
+        /// <summary>
+        /// プレイ画面
+        /// </summary>
+        Play,
+
+        /// <summary>
+        /// 結果画面
+        /// </summary>
+        Result,
     }
+
     StateScene stateScene;
 
     void Start()
