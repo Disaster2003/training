@@ -66,19 +66,21 @@ public class HurdleComponent : MonoBehaviour
         }
 
         switch (JobMove) {
-            case Job.Drop:
-                if (RB2D.gravityScale == 1f) {
-                    return;
-                }
+        default:
+            break;
+        case Job.Drop:
+            if (RB2D.gravityScale == 1f) {
+                return;
+            }
 
-                // 自由落下運動開始
-                RB2D.gravityScale = 1f;
-                break;
-            case Job.SinWave:
-                // sin波移動中
-                transform.Translate(Vector3.left * Time.deltaTime);
-                transform.position = new Vector3(transform.position.x, POSStartY + WidthSin * Mathf.Sin(SpeedSin * Time.time));
-                break;
+            // 自由落下運動開始
+            RB2D.gravityScale = 1f;
+            break;
+        case Job.SinWave:
+            // sin波移動中
+            transform.Translate(Vector3.left * Time.deltaTime);
+            transform.position = new Vector3(transform.position.x, POSStartY + WidthSin * Mathf.Sin(SpeedSin * Time.time));
+            break;
         }
     }
 }
