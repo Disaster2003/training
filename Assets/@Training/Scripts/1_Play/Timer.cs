@@ -1,44 +1,47 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// ã‚¿ã‚¤ãƒãƒ¼ç”¨ã‚¯ãƒ©ã‚¹
+/// </summary>
 public class Timer : MonoBehaviour
 {
     /// <summary>
-    /// ƒNƒŠƒA‚Ü‚Å‚ÌŠÔ‚ğŒv‘ª‚·‚é•Ï”
+    /// ã‚¯ãƒªã‚¢ã¾ã§ã®æ™‚é–“ã‚’è¨ˆæ¸¬ã™ã‚‹å¤‰æ•°
     /// </summary>
     float timer;
 
-    [SerializeField, Header("ŠÔ•\‹L—p")]
+    [SerializeField, Header("æ™‚é–“è¡¨è¨˜ç”¨")]
     TextMeshProUGUI TXTTimer;
 
     void Start()
     {
-        // ŠÔŒv‘ª‚ÌŠJnˆ—
+        // æ™‚é–“è¨ˆæ¸¬ã®é–‹å§‹å‡¦ç†
         PlayerPrefs.SetFloat("Rank0", 0f);
         timer = 0f;
     }
 
     void Update()
     {
-        // ƒvƒŒƒCŠJn‚©‚ç‚ÌŠÔ‚ğŒv‘ª
+        // ãƒ—ãƒ¬ã‚¤é–‹å§‹ã‹ã‚‰ã®æ™‚é–“ã‚’è¨ˆæ¸¬
         timer += Time.deltaTime;
         TXTTimer.text = timer.ToString("f1") + "s";
     }
 
     void OnDestroy()
     {
-        // ƒQ[ƒ€ƒI[ƒo[A0‹L˜^
+        // ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã€0è¨˜éŒ²
         if (PlayerPrefs.GetFloat("Rank0") == 0f) {
             PlayerPrefs.SetFloat("Rank0", 0f);
         }
     }
 
     /// <summary>
-    /// ƒ^ƒCƒ}[‚ğI—¹‚·‚é
+    /// ã‚¿ã‚¤ãƒãƒ¼ã‚’çµ‚äº†ã™ã‚‹
     /// </summary>
     public void FinishTimer()
     {
-        // ƒ‰ƒ“ƒLƒ“ƒO—p‚Éƒ^ƒCƒ€‚ğ•Û‘¶‚µAƒQ[ƒ€I—¹
+        // ãƒ©ãƒ³ã‚­ãƒ³ã‚°ç”¨ã«ã‚¿ã‚¤ãƒ ã‚’ä¿å­˜ã—ã€ã‚²ãƒ¼ãƒ çµ‚äº†
         PlayerPrefs.SetFloat("Rank0", timer);
         Destroy(gameObject);
     }
