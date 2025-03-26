@@ -5,32 +5,14 @@
 /// </summary>
 public class HurdleComponent : MonoBehaviour
 {
-    /// <summary>
-    /// 移動の役割
-    /// </summary>
-    public enum Job
-    {
-        /// <summary>
-        /// 自由落下運動
-        /// </summary>
-        Drop,
-
-        /// <summary>
-        /// sin波移動
-        /// </summary>
-        SinWave,
-    }
-
-    /// <summary>
-    /// 移動の役割を保持する変数
-    /// </summary>
-    public Job JobMove;
+    [SerializeField, Header("移動の役割")]
+    PhaseManager.Direction MoveDirection;
 
     [SerializeField, Header("自由落下用")]
     Rigidbody2D RB2D;
 
-    [SerializeField, Header("落下するまでの時間")]
-    float IntervalMoveStart;
+    [SerializeField, Header("目標地点の絶対値")]
+    float POSGoal;
 
     /// <summary>
     /// 開始時のy座標
@@ -43,17 +25,46 @@ public class HurdleComponent : MonoBehaviour
     [SerializeField, Header("sin波の周期")]
     float SpeedSin;
 
+    /// <summary>
+    /// 動き出すまでの時間(生成時、個体の順番別に設定)
+    /// </summary>
+    public float IntervalMoveStart;
+
+    /// <summary>
+    /// 障害物の体力
+    /// </summary>
+    int hitPoint;
+
+    [SerializeField, Header("最大体力")]
+    int HitPointMax;
+
     void Start()
     {
-        // 重力OFF
-        RB2D.gravityScale = 0f;
+        MakeWeightless();
 
         // 開始位置の確定
         POSStartY = transform.position.y;
+
+        // 状態の初期化
+        hitPoint = HitPointMax;
     }
 
     void Update()
         => Move();
+
+    void OnEnable()
+        => MakeWeightless();
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Bullet")) {
+            hitPoint--;
+
+            if (hitPoint <= 0) {
+                Destroy(gameObject);
+            }
+        }
+    }
 
     /// <summary>
     /// 役割ごとに移動処理を行う
@@ -66,18 +77,18 @@ public class HurdleComponent : MonoBehaviour
             return;
         }
 
-        switch (JobMove) {
+        switch (MoveDirection) {
         default:
             break;
-        case Job.Drop:
-            if (RB2D.gravityScale == 1f) {
-                return;
+        case PhaseManager.Direction.Up:
+            if (RB2D.bodyType == RigidbodyType2D.Dynamic) {
+                break;
             }
 
             // 自由落下運動開始
-            RB2D.gravityScale = 1f;
+            RB2D.bodyType = RigidbodyType2D.Dynamic;
             break;
-        case Job.SinWave:
+        case PhaseManager.Direction.Right:
             // sin波移動中
             transform.Translate(Vector3.left * Time.deltaTime);
             transform.position = new Vector3(
@@ -85,5 +96,20 @@ public class HurdleComponent : MonoBehaviour
                 POSStartY + (WidthSin * Mathf.Sin(SpeedSin * Time.time)));
             break;
         }
+
+        // 画面の枠外なら、移動終了
+        if(Mathf.Abs(transform.position.x) >= POSGoal || Mathf.Abs(transform.position.y) >= POSGoal) {
+            MakeWeightless();
+            GetComponent<HurdleComponent>().enabled = false;
+        }
+    }
+
+    /// <summary>
+    /// 無重力化
+    /// </summary>
+    void MakeWeightless()
+    {
+        RB2D.linearVelocity = new Vector2(0, 0);
+        RB2D.bodyType = RigidbodyType2D.Kinematic;
     }
 }

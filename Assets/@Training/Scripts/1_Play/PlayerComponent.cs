@@ -22,6 +22,9 @@ public class PlayerComponent : MonoBehaviour
     [SerializeField, Header("移動速度")]
     float SpeedMove;
 
+    [SerializeField, Header("弾の複製元")]
+    GameObject Bullet;
+
     /// <summary>
     /// プレイヤーの体力
     /// </summary>
@@ -61,10 +64,9 @@ public class PlayerComponent : MonoBehaviour
         if (collision.CompareTag("Hurdle")) {
             hitPoint--;
 
+            // ゲームオーバー
             if (hitPoint <= 0) {
-                /**
- * 後日、編集
- */
+                GameManager.Instance.ChangeScene = GameManager.StateScene.Result;
             }
         }
     }
@@ -93,11 +95,10 @@ public class PlayerComponent : MonoBehaviour
             );
     }
 
+    /// <summary>
+    /// 弾の発射準備を行う
+    /// </summary>
+    /// <param name="context">Space, Button Southの入力</param>
     void OnSpawnBullet(InputAction.CallbackContext context)
-    {
-        /**
-         * 後日、編集
-         */
-        //Instantiate();
-    }
+        => Instantiate(Bullet, transform.position, Quaternion.identity);
 }
