@@ -30,6 +30,7 @@ public class BulletMover : MonoBehaviour
     void Update()
     {
         Vector2 moveVector;
+
         switch (MoveDirection) {
         default:
             moveVector = Vector2.zero;
@@ -50,7 +51,7 @@ public class BulletMover : MonoBehaviour
     /// <summary>
     /// 弾を移動する
     /// </summary>
-    /// <param name="_moveVector">背景をスクロールする向き</param>
-    void Move(Vector2 _moveVector)
-        => transform.Translate(SpeedMove * _moveVector * Time.deltaTime);
+    /// <param name="moveVector">背景をスクロールする向き</param>
+    void Move(Vector2 moveVector)
+        => transform.Translate(SpeedMove * moveVector * Time.deltaTime);
 }
