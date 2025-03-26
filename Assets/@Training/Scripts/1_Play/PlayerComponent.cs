@@ -100,7 +100,5 @@ public class PlayerComponent : MonoBehaviour
     /// </summary>
     /// <param name="context">Space, Button Southの入力</param>
     void OnSpawnBullet(InputAction.CallbackContext context)
-    {
-        Instantiate(Bullet, transform.position, Quaternion.identity);
-    }
+        => Instantiate(Bullet, transform.position, Quaternion.identity);
 }
