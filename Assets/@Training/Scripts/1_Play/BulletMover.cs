@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// 弾の発射制御クラス
+/// </summary>
 public class BulletMover : MonoBehaviour
 {
     /// <summary>
