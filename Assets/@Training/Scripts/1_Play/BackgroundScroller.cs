@@ -17,54 +17,31 @@ public class BackgroundScroller : MonoBehaviour
     float SlowMagnification;
 
     /// <summary>
-    /// スクロール方向を示す列挙型
-    /// </summary>
-    public enum ScrollDirection
-    {
-        /// <summary>
-        /// 上方向
-        /// </summary>
-        Up,
-
-        /// <summary>
-        /// 下方向
-        /// </summary>
-        Down,
-
-        /// <summary>
-        /// 左方向
-        /// </summary>
-        Left,
-
-        /// <summary>
-        /// 右方向
-        /// </summary>
-        Right,
-    }
-
-    /// <summary>
     /// スクロール方向を保持する変数
     /// </summary>
-    public ScrollDirection ScrollDIR;
+    public PhaseManager.Direction ScrollDirection;
 
     void Update()
     {
         // 背景のスクロール方向を決定
         Vector2 scrollVector;
-        switch(ScrollDIR) {
+        switch(ScrollDirection) {
         default:
             scrollVector = Vector2.zero;
             break;
-        case ScrollDirection.Up:
+        case PhaseManager.Direction.Up:
             scrollVector = Vector2.up;
             break;
-        case ScrollDirection.Down:
-            scrollVector = Vector2.down;
-            break;
-        case ScrollDirection.Left:
-            scrollVector = Vector2.left;
-            break;
-        case ScrollDirection.Right:
+        /**
+         * 後日、実装予定
+         */
+        //case PhaseManager.Direction.Down:
+        //    scrollVector = Vector2.down;
+        //    break;
+        //case PhaseManager.Direction.Left:
+        //    scrollVector = Vector2.left;
+        //    break;
+        case PhaseManager.Direction.Right:
             scrollVector = Vector2.right;
             break;
         }
