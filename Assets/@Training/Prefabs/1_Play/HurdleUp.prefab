@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8331101277196446589}
   - component: {fileID: 6870415684058307218}
   m_Layer: 0
-  m_Name: Hurdle
+  m_Name: HurdleUp
   m_TagString: Hurdle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,4 +181,4 @@ MonoBehaviour:
   WidthSin: 2
   SpeedSin: 1
   IntervalMoveStart: 0
-  HitPointMax: 0
+  HitPointMax: 5

@@ -5,10 +5,8 @@
 /// </summary>
 public class HurdleComponent : MonoBehaviour
 {
-    /// <summary>
-    /// 移動の役割を保持する変数
-    /// </summary>
-    public PhaseManager.Direction MoveDirection;
+    [SerializeField, Header("移動の役割")]
+    PhaseManager.Direction MoveDirection;
 
     [SerializeField, Header("自由落下用")]
     Rigidbody2D RB2D;
@@ -28,7 +26,7 @@ public class HurdleComponent : MonoBehaviour
     float SpeedSin;
 
     /// <summary>
-    /// 動き出すまでの時間(生成時、役割ごとに決定)
+    /// 動き出すまでの時間(生成時、個体の順番別に設定)
     /// </summary>
     public float IntervalMoveStart;
 
@@ -37,10 +35,8 @@ public class HurdleComponent : MonoBehaviour
     /// </summary>
     int hitPoint;
 
-    /// <summary>
-    /// 最大体力(生成時、役割ごとに決定)
-    /// </summary>
-    public int HitPointMax;
+    [SerializeField, Header("最大体力")]
+    int HitPointMax;
 
     void Start()
     {

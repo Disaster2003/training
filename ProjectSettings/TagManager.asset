@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Hurdle
-  - Bulllet
+  - Bullet
   layers:
   - Default
   - TransparentFX
