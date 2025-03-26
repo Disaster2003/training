@@ -22,6 +22,9 @@ public class PlayerComponent : MonoBehaviour
     [SerializeField, Header("移動速度")]
     float SpeedMove;
 
+    [SerializeField, Header("弾の発射方向確認用")]
+    PhaseManager PM;
+
     [SerializeField, Header("弾の複製元")]
     GameObject Bullet;
 
@@ -100,5 +103,8 @@ public class PlayerComponent : MonoBehaviour
     /// </summary>
     /// <param name="context">Space, Button Southの入力</param>
     void OnSpawnBullet(InputAction.CallbackContext context)
-        => Instantiate(Bullet, transform.position, Quaternion.identity);
+    {
+        GameObject bullet = Instantiate(Bullet, transform.position, Quaternion.identity);
+        bullet.GetComponent<BulletMover>().MoveDirection = PM.OriginDirection;
+    }
 }

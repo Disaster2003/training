@@ -330,7 +330,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   POSLimit: {x: 8.25, y: 4.5}
   SpeedMove: 10
-  Bullet: {fileID: 0}
+  PM: {fileID: 1204578371}
+  Bullet: {fileID: 345513982548413810, guid: 705db59a2ec02c74ba7974bd21d29e52, type: 3}
   HitPointMax: 3
 --- !u!212 &776821317
 SpriteRenderer:
@@ -763,7 +764,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IMGPhaseGauge: {fileID: 1204578369}
   IntervalPhase: 10
-  HurdlePrefab: {fileID: 8195455535394294999, guid: b1dc148dd20e5df44a3c786616f59107, type: 3}
+  HurdlePrefab:
+  - {fileID: 8195455535394294999, guid: f7abb2b275a09bd4c87ccc979c1c7ae0, type: 3}
+  - {fileID: 8195455535394294999, guid: b1dc148dd20e5df44a3c786616f59107, type: 3}
   Background: {fileID: 126870441}
 --- !u!1 &1815963019
 GameObject:
