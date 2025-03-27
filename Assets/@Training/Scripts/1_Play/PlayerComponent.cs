@@ -9,7 +9,7 @@ public class PlayerComponent : MonoBehaviour
     /// <summary>
     /// インプットアクションを定義
     /// </summary>
-    InputSystem_Actions inputSystem_Actions;
+    InputSystem_Actions inputSystemActions;
 
     /// <summary>
     /// 押下移動量
@@ -21,6 +21,9 @@ public class PlayerComponent : MonoBehaviour
 
     [SerializeField, Header("移動速度")]
     float SpeedMove;
+
+    [SerializeField, Header("弾の発射方向確認用")]
+    PhaseManager PM;
 
     [SerializeField, Header("弾の複製元")]
     GameObject Bullet;
@@ -36,16 +39,16 @@ public class PlayerComponent : MonoBehaviour
     void Start()
     {
         // インプットアクションを取得
-        inputSystem_Actions = new InputSystem_Actions();
+        inputSystemActions = new InputSystem_Actions();
 
         // アクションにイベントを登録
-        inputSystem_Actions.Player.Move.started += OnMove;
-        inputSystem_Actions.Player.Move.performed += OnMove;
-        inputSystem_Actions.Player.Move.canceled += OnMove;
-        inputSystem_Actions.Player.Jump.started += OnSpawnBullet;
+        inputSystemActions.Player.Move.started += OnMove;
+        inputSystemActions.Player.Move.performed += OnMove;
+        inputSystemActions.Player.Move.canceled += OnMove;
+        inputSystemActions.Player.Jump.started += OnSpawnBullet;
 
         // インプットアクションを機能させる為に有効化
-        inputSystem_Actions.Enable();
+        inputSystemActions.Enable();
 
         // 状態の初期化
         inputMove = Vector3.zero;
@@ -57,7 +60,7 @@ public class PlayerComponent : MonoBehaviour
 
     // インプットアクションを他の画面で呼び出さないように無効化
     void OnDestroy()
-        => inputSystem_Actions.Disable();
+        => inputSystemActions.Disable();
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -81,7 +84,9 @@ public class PlayerComponent : MonoBehaviour
     void Move()
     {
         // 押下されていない / 十分にジョイスティックが倒れていない判定
-        if (inputMove.sqrMagnitude < 0.01f) return;
+        if (inputMove.sqrMagnitude < 0.01f) {
+            return;
+        }
 
         // 入力方向への移動
         transform.position += inputMove.normalized * SpeedMove * Time.deltaTime;
@@ -100,5 +105,8 @@ public class PlayerComponent : MonoBehaviour
     /// </summary>
     /// <param name="context">Space, Button Southの入力</param>
     void OnSpawnBullet(InputAction.CallbackContext context)
-        => Instantiate(Bullet, transform.position, Quaternion.identity);
+    {
+        var bullet = Instantiate(Bullet, transform.position, Quaternion.identity);
+        bullet.GetComponent<BulletMover>().MoveDirection = PM.OriginDirection;
+    }
 }

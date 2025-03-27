@@ -25,6 +25,7 @@ public class BackgroundScroller : MonoBehaviour
     {
         // 背景のスクロール方向を決定
         Vector2 scrollVector;
+
         switch(ScrollDirection) {
         default:
             scrollVector = Vector2.zero;
@@ -34,13 +35,14 @@ public class BackgroundScroller : MonoBehaviour
             break;
         /**
          * 後日、実装予定
+         * 
+        case PhaseManager.Direction.Down:
+            scrollVector = Vector2.down;
+            break;
+        case PhaseManager.Direction.Left:
+            scrollVector = Vector2.left;
+            break;
          */
-        //case PhaseManager.Direction.Down:
-        //    scrollVector = Vector2.down;
-        //    break;
-        //case PhaseManager.Direction.Left:
-        //    scrollVector = Vector2.left;
-        //    break;
         case PhaseManager.Direction.Right:
             scrollVector = Vector2.right;
             break;
@@ -52,7 +54,7 @@ public class BackgroundScroller : MonoBehaviour
     /// <summary>
     /// 背景をスクロールする
     /// </summary>
-    /// <param name="_scrollVector">背景をスクロールする向き</param>
-    void ScrollBackground(Vector2 _scrollVector)
-        => Background.material.SetTextureOffset("_MainTex", _scrollVector * Mathf.Repeat(SlowMagnification * Time.time, OffsetMax));
+    /// <param name="scrollVector">背景をスクロールする向き</param>
+    void ScrollBackground(Vector2 scrollVector)
+        => Background.material.SetTextureOffset("_MainTex", scrollVector * Mathf.Repeat(SlowMagnification * Time.time, OffsetMax));
 }
