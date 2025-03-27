@@ -14,6 +14,11 @@ public class RankSetter : MonoBehaviour
     TextMeshProUGUI[] TXTRankingScore;
 
     /// <summary>
+    /// プレイヤーのスコア
+    /// </summary>
+    float scorePlayer;
+
+    /// <summary>
     /// ランクそれぞれのスコア
     /// </summary>
     float[] scoreRank = new float[6];
@@ -46,8 +51,8 @@ public class RankSetter : MonoBehaviour
     void CallRankData()
     {
         // プレイヤーのスコアを呼び出す
-        scoreRank[0] = PlayerPrefs.GetFloat("ThisScore");
-        TXTPlayerScore.text = scoreRank[0].ToString("f1");
+        scorePlayer = PlayerPrefs.GetFloat("ThisScore");
+        TXTPlayerScore.text = $"{ scorePlayer:f1}s";
         TXTPlayerScore.color = Color.red;
 
         if (PlayerPrefs.HasKey("Rank1")) {
@@ -73,7 +78,7 @@ public class RankSetter : MonoBehaviour
 
         for (int i = scoreRank.Length - 1; i > 0; i--) {
             // 昇順 1...5
-            if (scoreRank[i] == 0f || scoreRank[i] >= scoreRank[0]) {
+            if (scoreRank[i] == 0f || scoreRank[i] >= scorePlayer) {
                 // ランク番号の記録
                 rankNew = i;
             }
@@ -88,8 +93,7 @@ public class RankSetter : MonoBehaviour
             }
 
             // 新ランクに登録
-            scoreRank[rankNew] = scoreRank[0];
-            scoreRank[0] = 0f;
+            scoreRank[rankNew] = scorePlayer;
 
             for (var i = 1; i < scoreRank.Length; i++) {
                 // データ領域に保存
