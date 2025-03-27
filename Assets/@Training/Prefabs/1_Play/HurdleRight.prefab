@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveDirection: 1
   RB2D: {fileID: 8331101277196446589}
-  POSGoal: 9
+  POSGoal: {x: 10, y: 6}
   WidthSin: 2
   SpeedSin: 1
   IntervalMoveStart: 0

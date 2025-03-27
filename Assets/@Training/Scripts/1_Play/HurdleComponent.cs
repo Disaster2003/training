@@ -12,7 +12,7 @@ public class HurdleComponent : MonoBehaviour
     Rigidbody2D RB2D;
 
     [SerializeField, Header("目標地点の絶対値")]
-    float POSGoal;
+    Vector2 POSGoal;
 
     /// <summary>
     /// 開始時のy座標
@@ -98,7 +98,7 @@ public class HurdleComponent : MonoBehaviour
         }
 
         // 画面の枠外なら、移動終了
-        if(Mathf.Abs(transform.position.x) >= POSGoal || Mathf.Abs(transform.position.y) >= POSGoal) {
+        if(Mathf.Abs(transform.position.x) >= POSGoal.x || Mathf.Abs(transform.position.y) >= POSGoal.y) {
             MakeWeightless();
             GetComponent<HurdleComponent>().enabled = false;
         }

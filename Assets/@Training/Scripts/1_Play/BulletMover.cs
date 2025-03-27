@@ -10,6 +10,9 @@ public class BulletMover : MonoBehaviour
     /// </summary>
     public PhaseManager.Direction MoveDirection;
 
+    [SerializeField, Header("目標地点の絶対値")]
+    Vector2 POSGoal;
+
     [SerializeField, Header("弾の移動速度")]
     float SpeedMove;
 
@@ -56,5 +59,12 @@ public class BulletMover : MonoBehaviour
     /// </summary>
     /// <param name="moveVector">背景をスクロールする向き</param>
     void Move(Vector2 moveVector)
-        => transform.Translate(SpeedMove * moveVector * Time.deltaTime);
+    {
+        transform.Translate(SpeedMove * moveVector * Time.deltaTime);
+
+        // 画面の枠外なら、移動終了
+        if (Mathf.Abs(transform.position.x) >= POSGoal.x || Mathf.Abs(transform.position.y) >= POSGoal.y) {
+            Destroy(gameObject);
+        }
+    }
 }
