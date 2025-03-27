@@ -84,7 +84,9 @@ public class PlayerComponent : MonoBehaviour
     void Move()
     {
         // 押下されていない / 十分にジョイスティックが倒れていない判定
-        if (inputMove.sqrMagnitude < 0.01f) return;
+        if (inputMove.sqrMagnitude < 0.01f) {
+            return;
+        }
 
         // 入力方向への移動
         transform.position += inputMove.normalized * SpeedMove * Time.deltaTime;
