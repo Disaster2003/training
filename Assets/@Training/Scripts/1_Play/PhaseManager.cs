@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -142,6 +143,8 @@ public class PhaseManager : MonoBehaviour
         timerPhase = itemCSV[ItemCSV.IntervalPhase][(int)OriginDirection];
 
         switch (OriginDirection) {
+        default:
+            break;
         case Direction.Up:
             for (var i = 0; i < hurdles[OriginDirection].Count; i++) {
                 var j = itemCSV[ItemCSV.PositionStartX][(int)OriginDirection] - i * itemCSV[ItemCSV.PositionSpace][(int)OriginDirection];
@@ -182,7 +185,7 @@ public class PhaseManager : MonoBehaviour
         }
 
         // 有効な方向がない場合はゲームクリア
-        if (validDirections.Count == 0) {
+        if (!validDirections.Any()) {
             TXTTimer.FinishTimer();
             GameManager.Instance.ChangeScene = GameManager.StateScene.Result;
             return;
@@ -215,29 +218,29 @@ public class PhaseManager : MonoBehaviour
     {
         // CSVの読み込み(引用)
         var csvFile = Resources.Load("parameters") as TextAsset; // ResourcesにあるCSVファイルを格納
-        var reader = new StringReader(csvFile.text); // TextAssetをStringReaderに変換
-        var csvData = new List<string[]>(); // CSVファイルの中身を入れるリスト
+        using (var reader = new StringReader(csvFile.text)) { // TextAssetをStringReaderに変換
+            var csvData = new List<string[]>(); // CSVファイルの中身を入れるリスト
 
-        while (reader.Peek() != -1) {
-            var line = reader.ReadLine(); // 1行ずつ読み込む
-            csvData.Add(line.Split(',')); // csvDataリストに追加する
-        }
+            while (reader.Peek() != -1) {
+                csvData.Add(reader.ReadLine().Split(',')); // csvDataリストに追加する
+            }
 
-        // 値の代入
-        itemCSV[ItemCSV.NumberOfGenerations] = new float[(int)Direction.Right + 1];
-        itemCSV[ItemCSV.IntervalPhase] = new float[(int)Direction.Right + 1];
-        itemCSV[ItemCSV.PositionStartX] = new float[(int)Direction.Right + 1];
-        itemCSV[ItemCSV.PositionStartY] = new float[(int)Direction.Right + 1];
-        itemCSV[ItemCSV.PositionSpace] = new float[(int)Direction.Right + 1];
-        itemCSV[ItemCSV.IntervalMoveStart] = new float[(int)Direction.Right + 1];
+            // 値の代入
+            itemCSV[ItemCSV.NumberOfGenerations] = new float[(int)Direction.Right + 1];
+            itemCSV[ItemCSV.IntervalPhase] = new float[(int)Direction.Right + 1];
+            itemCSV[ItemCSV.PositionStartX] = new float[(int)Direction.Right + 1];
+            itemCSV[ItemCSV.PositionStartY] = new float[(int)Direction.Right + 1];
+            itemCSV[ItemCSV.PositionSpace] = new float[(int)Direction.Right + 1];
+            itemCSV[ItemCSV.IntervalMoveStart] = new float[(int)Direction.Right + 1];
 
-        for (var i = 0; i <= (int)Direction.Right; i++) {
-            itemCSV[ItemCSV.NumberOfGenerations][i] = float.Parse(csvData[(int)ItemCSV.NumberOfGenerations][i + 1]);
-            itemCSV[ItemCSV.IntervalPhase][i] = float.Parse(csvData[(int)ItemCSV.IntervalPhase][i + 1]);
-            itemCSV[ItemCSV.PositionStartX][i] = float.Parse(csvData[(int)ItemCSV.PositionStartX][i + 1]);
-            itemCSV[ItemCSV.PositionStartY][i] = float.Parse(csvData[(int)ItemCSV.PositionStartY][i + 1]);
-            itemCSV[ItemCSV.PositionSpace][i] = float.Parse(csvData[(int)ItemCSV.PositionSpace][i + 1]);
-            itemCSV[ItemCSV.IntervalMoveStart][i] = float.Parse(csvData[(int)ItemCSV.IntervalMoveStart][i + 1]);
+            for (var i = 0; i <= (int)Direction.Right; i++) {
+                itemCSV[ItemCSV.NumberOfGenerations][i] = float.Parse(csvData[(int)ItemCSV.NumberOfGenerations][i + 1]);
+                itemCSV[ItemCSV.IntervalPhase][i] = float.Parse(csvData[(int)ItemCSV.IntervalPhase][i + 1]);
+                itemCSV[ItemCSV.PositionStartX][i] = float.Parse(csvData[(int)ItemCSV.PositionStartX][i + 1]);
+                itemCSV[ItemCSV.PositionStartY][i] = float.Parse(csvData[(int)ItemCSV.PositionStartY][i + 1]);
+                itemCSV[ItemCSV.PositionSpace][i] = float.Parse(csvData[(int)ItemCSV.PositionSpace][i + 1]);
+                itemCSV[ItemCSV.IntervalMoveStart][i] = float.Parse(csvData[(int)ItemCSV.IntervalMoveStart][i + 1]);
+            }
         }
     }
 }
