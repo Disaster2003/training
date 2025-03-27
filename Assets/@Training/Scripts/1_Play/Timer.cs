@@ -43,6 +43,5 @@ public class Timer : MonoBehaviour
     {
         // ランキング用にタイムを保存し、ゲーム終了
         PlayerPrefs.SetFloat("Rank0", timer);
-        Destroy(gameObject);
     }
 }

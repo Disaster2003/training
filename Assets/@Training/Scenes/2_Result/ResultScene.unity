@@ -428,6 +428,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 483298475}
     m_Modifications:
+    - target: {fileID: -6820142331908550465, guid: 18b2f71337602db4881d4e61f16c3d2a, type: 3}
+      propertyPath: StateSceneVAR
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 822337578595190578, guid: 18b2f71337602db4881d4e61f16c3d2a, type: 3}
       propertyPath: m_Name
       value: btnPlay
