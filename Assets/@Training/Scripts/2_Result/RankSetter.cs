@@ -1,17 +1,20 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class RankSeter : MonoBehaviour
+/// <summary>
+/// ãƒ©ãƒ³ã‚­ãƒ³ã‚°è¨­å®šã‚¯ãƒ©ã‚¹
+/// </summary>
+public class RankSetter : MonoBehaviour
 {
-    [SerializeField, Header("ƒvƒŒƒCƒ„[‚ÌƒXƒRƒA")]
+    [SerializeField, Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ã‚³ã‚¢")]
     TextMeshProUGUI TXTPlayerScore;
 
-    [SerializeField, Header("ƒ‰ƒ“ƒLƒ“ƒO‚ÌƒXƒRƒA")]
+    [SerializeField, Header("ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®ã‚¹ã‚³ã‚¢")]
     TextMeshProUGUI[] TXTRankingScore;
 
     /// <summary>
-    /// ƒ‰ƒ“ƒN‚»‚ê‚¼‚ê‚ÌƒXƒRƒA
+    /// ãƒ©ãƒ³ã‚¯ãã‚Œãã‚Œã®ã‚¹ã‚³ã‚¢
     /// </summary>
     float[] scoreRank = new float[6];
 
@@ -23,37 +26,37 @@ public class RankSeter : MonoBehaviour
 
     void Update()
     {
-        // esc‚Åƒ‰ƒ“ƒLƒ“ƒOƒŠƒZƒbƒg
+        // escã§ãƒ©ãƒ³ã‚­ãƒ³ã‚°ãƒªã‚»ãƒƒãƒˆ
         if (Keyboard.current.escapeKey.wasPressedThisFrame) {
             for (var i = 0; i < TXTRankingScore.Length; i++) {
                 scoreRank[i + 1] = 0f;
                 TXTRankingScore[i].text = $"{i + 1} | _._s";
             }
 
-            // ƒf[ƒ^—Ìˆæ‚ÌƒŠƒZƒbƒg
+            // ãƒ‡ãƒ¼ã‚¿é ˜åŸŸã®ãƒªã‚»ãƒƒãƒˆ
             PlayerPrefs.DeleteAll();
         }
     }
 
     /// <summary>
-    /// ƒ‰ƒ“ƒN‚ÌƒXƒRƒA‚ª
-    /// •Û‘¶‚³‚ê‚Ä‚¢‚éê‡: ƒf[ƒ^—Ìˆæ‚©‚çŒÄ‚Ño‚·
-    /// •Û‘¶‚³‚ê‚Ä‚¢‚È‚¢ê‡: ƒf[ƒ^—Ìˆæ‚ğ‰Šú‰»‚·‚é
+    /// ãƒ©ãƒ³ã‚¯ã®ã‚¹ã‚³ã‚¢ãŒ
+    /// ä¿å­˜ã•ã‚Œã¦ã„ã‚‹å ´åˆ: ãƒ‡ãƒ¼ã‚¿é ˜åŸŸã‹ã‚‰å‘¼ã³å‡ºã™
+    /// ä¿å­˜ã•ã‚Œã¦ã„ãªã„å ´åˆ: ãƒ‡ãƒ¼ã‚¿é ˜åŸŸã‚’åˆæœŸåŒ–ã™ã‚‹
     /// </summary>
     void CallRankData()
     {
-        // ƒvƒŒƒCƒ„[‚ÌƒXƒRƒA‚ğŒÄ‚Ño‚·
-        scoreRank[0] = PlayerPrefs.GetFloat("Rank0");
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ã‚³ã‚¢ã‚’å‘¼ã³å‡ºã™
+        scoreRank[0] = PlayerPrefs.GetFloat("ThisScore");
         TXTPlayerScore.text = scoreRank[0].ToString("f1");
         TXTPlayerScore.color = Color.red;
-        
+
         if (PlayerPrefs.HasKey("Rank1")) {
-            // ƒf[ƒ^—Ìˆæ‚Ì“Ç‚İ‚İ
+            // ãƒ‡ãƒ¼ã‚¿é ˜åŸŸã®èª­ã¿è¾¼ã¿
             for (var i = 1; i < scoreRank.Length; i++) {
                 scoreRank[i] = PlayerPrefs.GetFloat("Rank" + i);
             }
         } else {
-            // ƒf[ƒ^—Ìˆæ‚Ì‰Šú‰»
+            // ãƒ‡ãƒ¼ã‚¿é ˜åŸŸã®åˆæœŸåŒ–
             for (var i = 1; i < scoreRank.Length; i++) {
                 scoreRank[i] = 0f;
                 PlayerPrefs.SetFloat("Rank" + i, scoreRank[i]);
@@ -62,46 +65,46 @@ public class RankSeter : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒ‰ƒ“ƒN•t‚¯‚ğ‚µ‚ÄA•\¦‚·‚é
+    /// ãƒ©ãƒ³ã‚¯ä»˜ã‘ã‚’ã—ã¦ã€è¡¨ç¤ºã™ã‚‹
     /// </summary>
     void UpdateRank()
     {
-        var rankNew = 0; // ¡‰ñ‚ÌƒXƒRƒA‚ğÅ‰ºˆÊ‚Æ‰¼’è‚·‚é
+        var rankNew = 0; // ä»Šå›ã®ã‚¹ã‚³ã‚¢ã‚’æœ€ä¸‹ä½ã¨ä»®å®šã™ã‚‹
 
-        for (int i = scoreRank.Length - 1; i > 0; i--) { 
-            // ¸‡ 1...5
+        for (int i = scoreRank.Length - 1; i > 0; i--) {
+            // æ˜‡é † 1...5
             if (scoreRank[i] == 0f || scoreRank[i] >= scoreRank[0]) {
-                // ƒ‰ƒ“ƒN”Ô†‚Ì‹L˜^
+                // ãƒ©ãƒ³ã‚¯ç•ªå·ã®è¨˜éŒ²
                 rankNew = i;
             }
         }
 
-        // “¯‚¶ƒXƒRƒA‚ª‚È‚­A‚Ü‚½‚ÍV‚µ‚¢ƒ‰ƒ“ƒN‚ªŒ©‚Â‚©‚Á‚½‚ç
+        // åŒã˜ã‚¹ã‚³ã‚¢ãŒãªãã€ã¾ãŸã¯æ–°ã—ã„ãƒ©ãƒ³ã‚¯ãŒè¦‹ã¤ã‹ã£ãŸã‚‰
         if (rankNew != 0) {
-            // 0ˆÊ‚Ì‚Ü‚Ü‚Å‚È‚©‚Á‚½‚çƒ‰ƒ“ƒNƒCƒ“Šm’è
+            // 0ä½ã®ã¾ã¾ã§ãªã‹ã£ãŸã‚‰ãƒ©ãƒ³ã‚¯ã‚¤ãƒ³ç¢ºå®š
             for (int i = scoreRank.Length - 1; i > rankNew; i--) {
-                // ŒJ‚è‰º‚°ˆ—
+                // ç¹°ã‚Šä¸‹ã’å‡¦ç†
                 scoreRank[i] = scoreRank[i - 1];
             }
 
-            // Vƒ‰ƒ“ƒN‚É“o˜^
+            // æ–°ãƒ©ãƒ³ã‚¯ã«ç™»éŒ²
             scoreRank[rankNew] = scoreRank[0];
             scoreRank[0] = 0f;
 
             for (var i = 1; i < scoreRank.Length; i++) {
-                // ƒf[ƒ^—Ìˆæ‚É•Û‘¶
+                // ãƒ‡ãƒ¼ã‚¿é ˜åŸŸã«ä¿å­˜
                 PlayerPrefs.SetFloat("Rank" + i, scoreRank[i]);
             }
         }
 
-        // ƒeƒLƒXƒg‚É•\¦
+        // ãƒ†ã‚­ã‚¹ãƒˆã«è¡¨ç¤º
         for (var i = 0; i < TXTRankingScore.Length; i++) {
             if (scoreRank[i + 1] == 0f) {
                 TXTRankingScore[i].text = $"{i + 1} | _._s";
             } else {
                 TXTRankingScore[i].text = $"{i + 1} | {scoreRank[i + 1]:f1}s";
 
-                if(i + 1 == rankNew) {
+                if (i + 1 == rankNew) {
                     TXTRankingScore[i].color = Color.red;
                 }
             }

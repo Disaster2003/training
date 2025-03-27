@@ -42,6 +42,6 @@ public class Timer : MonoBehaviour
     public void FinishTimer()
     {
         // ランキング用にタイムを保存し、ゲーム終了
-        PlayerPrefs.SetFloat("Rank0", timer);
+        PlayerPrefs.SetFloat("ThisScore", timer);
     }
 }
