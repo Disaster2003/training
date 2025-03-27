@@ -23,10 +23,10 @@ public class BulletMover : MonoBehaviour
         default:
             break;
         case PhaseManager.Direction.Up:
-            //case PhaseManager.Direction.Down: /* 後日、実装予定 */
+        case PhaseManager.Direction.Down:
             transform.rotation = Quaternion.Euler(0, 0, 0);
             break;
-        //case PhaseManager.Direction.Left: /* 後日、実装予定 */
+        case PhaseManager.Direction.Left:
         case PhaseManager.Direction.Right:
             transform.rotation = Quaternion.Euler(0, 0, 90);
             break;
@@ -42,10 +42,10 @@ public class BulletMover : MonoBehaviour
             moveVector = Vector2.zero;
             break;
         case PhaseManager.Direction.Up:
-        //case PhaseManager.Direction.Left: /* 後日、実装予定 */
+        case PhaseManager.Direction.Left:
             moveVector = Vector2.up;
             break;
-        //case PhaseManager.Direction.Down: /* 後日、実装予定 */
+        case PhaseManager.Direction.Down:
         case PhaseManager.Direction.Right:
             moveVector = Vector2.down;
             break;

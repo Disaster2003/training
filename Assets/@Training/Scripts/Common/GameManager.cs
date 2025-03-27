@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
     {
         set {
             stateScene = value;
-            SceneManager.LoadSceneAsync((int)stateScene);
+            SceneManager.LoadScene((int)stateScene);
         }
     }
 }

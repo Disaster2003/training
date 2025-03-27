@@ -23,6 +23,16 @@ public class RankSetter : MonoBehaviour
     /// </summary>
     float[] scoreRank = new float[6];
 
+    /// <summary>
+    /// プレイヤースコアを取得、設定するためのキー
+    /// </summary>
+    const string Player_Score_Key = "PlayerScore";
+
+    /// <summary>
+    /// ランキングの1位スコアを取得、設定するためのキー
+    /// </summary>
+    const string Rank1_Score_Key = "Rank1";
+
     void Start()
     {
         CallRankData();
@@ -51,11 +61,11 @@ public class RankSetter : MonoBehaviour
     void CallRankData()
     {
         // プレイヤーのスコアを呼び出す
-        scorePlayer = PlayerPrefs.GetFloat("ThisScore");
+        scorePlayer = PlayerPrefs.GetFloat(Player_Score_Key);
         TXTPlayerScore.text = $"{ scorePlayer:f1}s";
         TXTPlayerScore.color = Color.red;
 
-        if (PlayerPrefs.HasKey("Rank1")) {
+        if (PlayerPrefs.HasKey(Rank1_Score_Key)) {
             // データ領域の読み込み
             for (var i = 1; i < scoreRank.Length; i++) {
                 scoreRank[i] = PlayerPrefs.GetFloat("Rank" + i);

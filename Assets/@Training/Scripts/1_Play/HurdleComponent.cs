@@ -25,6 +25,11 @@ public class HurdleComponent : MonoBehaviour
     [SerializeField, Header("sin波の周期")]
     float SpeedSin;
 
+    GameObject player;
+
+    [SerializeField, Header("移動速度")]
+    float SpeedMove;
+
     /// <summary>
     /// 動き出すまでの時間(生成時、個体の順番別に設定)
     /// </summary>
@@ -77,6 +82,11 @@ public class HurdleComponent : MonoBehaviour
             return;
         }
 
+        if (player == null) {
+            // プレイヤーの位置を確認
+            player = FindFirstObjectByType<PlayerComponent>().gameObject;
+        }
+
         switch (MoveDirection) {
         default:
             break;
@@ -88,9 +98,16 @@ public class HurdleComponent : MonoBehaviour
             // 自由落下運動開始
             RB2D.bodyType = RigidbodyType2D.Dynamic;
             break;
+        case PhaseManager.Direction.Down:
+            // 動作間隔が明けて取得したプレイヤーの位置に追従
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Time.deltaTime);
+            break;
+        case PhaseManager.Direction.Left:
+            transform.Translate(SpeedMove * Vector3.right * Time.deltaTime);
+            break;
         case PhaseManager.Direction.Right:
             // sin波移動中
-            transform.Translate(Vector3.left * Time.deltaTime);
+            transform.Translate(SpeedMove * Vector3.left * Time.deltaTime);
             transform.position = new Vector3(
                 transform.position.x,
                 POSStartY + (WidthSin * Mathf.Sin(SpeedSin * Time.time)));

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c3bf646d3e8060946a1e6a1d48b8b7ab
+guid: 868cafc153f35a9419e0ed034cdc8453
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1905112616328929644
-    second: universe_space01_0
+      213: 8054082976725251409
+    second: mury-no-roketto-sen-irasuto-gaz_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,13 +40,13 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
-    wrapW: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: universe_space01_0
+      name: mury-no-roketto-sen-irasuto-gaz_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1920
-        height: 1080
+        width: 742
+        height: 944
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c61a661b4d1507a10800000000000000
-      internalID: 1905112616328929644
+      spriteID: 155ba338bc9d5cf60800000000000000
+      internalID: 8054082976725251409
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      universe_space01_0: 1905112616328929644
+      mury-no-roketto-sen-irasuto-gaz_0: 8054082976725251409
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

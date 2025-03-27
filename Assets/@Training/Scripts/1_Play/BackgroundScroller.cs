@@ -33,16 +33,13 @@ public class BackgroundScroller : MonoBehaviour
         case PhaseManager.Direction.Up:
             scrollVector = Vector2.up;
             break;
-        /**
-         * 後日、実装予定
-         * 
         case PhaseManager.Direction.Down:
             scrollVector = Vector2.down;
             break;
         case PhaseManager.Direction.Left:
             scrollVector = Vector2.left;
             break;
-         */
+
         case PhaseManager.Direction.Right:
             scrollVector = Vector2.right;
             break;

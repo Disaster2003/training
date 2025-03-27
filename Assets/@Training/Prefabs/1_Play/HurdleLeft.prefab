@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8331101277196446589}
   - component: {fileID: 6870415684058307218}
   m_Layer: 0
-  m_Name: HurdleRight
+  m_Name: HurdleLeft
   m_TagString: Hurdle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,11 +175,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eb599ed0e62a944db860cb724215ab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveDirection: 3
+  MoveDirection: 2
   RB2D: {fileID: 8331101277196446589}
   POSGoal: {x: 10, y: 6}
   WidthSin: 2
-  SpeedSin: 0.5
-  SpeedMove: 5
+  SpeedSin: 1
+  SpeedMove: 10
   IntervalMoveStart: 0
   HitPointMax: 10
