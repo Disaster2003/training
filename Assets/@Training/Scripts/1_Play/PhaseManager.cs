@@ -218,6 +218,7 @@ public class PhaseManager : MonoBehaviour
     {
         // CSVの読み込み(引用)
         var csvFile = Resources.Load("parameters") as TextAsset; // ResourcesにあるCSVファイルを格納
+
         using (var reader = new StringReader(csvFile.text)) { // TextAssetをStringReaderに変換
             var csvData = new List<string[]>(); // CSVファイルの中身を入れるリスト
 
