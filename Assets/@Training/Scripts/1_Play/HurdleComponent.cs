@@ -98,7 +98,7 @@ public class HurdleComponent : MonoBehaviour
         }
 
         // 画面の枠外なら、移動終了
-        if(Mathf.Abs(transform.position.x) >= POSGoal.x || Mathf.Abs(transform.position.y) >= POSGoal.y) {
+        if (Mathf.Abs(transform.position.x) >= POSGoal.x || Mathf.Abs(transform.position.y) >= POSGoal.y) {
             MakeWeightless();
             GetComponent<HurdleComponent>().enabled = false;
         }
