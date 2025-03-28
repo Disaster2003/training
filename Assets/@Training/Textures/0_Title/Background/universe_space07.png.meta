@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c3bf646d3e8060946a1e6a1d48b8b7ab
+guid: 5dc7903b0a9fb8047b857038322970ff
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1905112616328929644
-    second: universe_space01_0
+      213: 7895611917995714610
+    second: universe_space07_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,9 +40,9 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
-    wrapW: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: universe_space01_0
+      name: universe_space07_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c61a661b4d1507a10800000000000000
-      internalID: 1905112616328929644
+      spriteID: 238a978e439d29d60800000000000000
+      internalID: 7895611917995714610
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      universe_space01_0: 1905112616328929644
+      universe_space07_0: 7895611917995714610
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

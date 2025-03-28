@@ -14,10 +14,15 @@ public class Timer : MonoBehaviour
     [SerializeField, Header("時間表記用")]
     TextMeshProUGUI TXTTimer;
 
+    /// <summary>
+    /// プレイヤースコアを取得、設定するためのキー
+    /// </summary>
+    const string Player_Score_Key = "PlayerScore";
+
     void Start()
     {
         // 時間計測の開始処理
-        PlayerPrefs.SetFloat("Rank0", 0f);
+        PlayerPrefs.SetFloat(Player_Score_Key, 0f);
         timer = 0f;
     }
 
@@ -28,20 +33,12 @@ public class Timer : MonoBehaviour
         TXTTimer.text = timer.ToString("f1") + "s";
     }
 
-    void OnDestroy()
-    {
-        // ゲームオーバー時、0記録
-        if (PlayerPrefs.GetFloat("Rank0") == 0f) {
-            PlayerPrefs.SetFloat("Rank0", 0f);
-        }
-    }
-
     /// <summary>
     /// タイマーを終了する
     /// </summary>
     public void FinishTimer()
     {
         // ランキング用にタイムを保存し、ゲーム終了
-        PlayerPrefs.SetFloat("Rank0", timer);
+        PlayerPrefs.SetFloat(Player_Score_Key, timer);
     }
 }

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c3bf646d3e8060946a1e6a1d48b8b7ab
+guid: ce47e0adde6c89445a1fd2954b4f7dc0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1905112616328929644
-    second: universe_space01_0
+      213: 8920094601511327869
+    second: Cool Text - Retry 479112348248851_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,9 +40,9 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
-    wrapW: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: universe_space01_0
+      name: Cool Text - Retry 479112348248851_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1920
-        height: 1080
+        x: 4
+        y: 5
+        width: 277
+        height: 124
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c61a661b4d1507a10800000000000000
-      internalID: 1905112616328929644
+      spriteID: d7856f587ca8acb70800000000000000
+      internalID: 8920094601511327869
       vertices: []
       indices: 
       edges: []
@@ -160,8 +160,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      universe_space01_0: 1905112616328929644
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

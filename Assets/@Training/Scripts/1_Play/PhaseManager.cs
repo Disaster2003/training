@@ -27,15 +27,15 @@ public class PhaseManager : MonoBehaviour
         /// </summary>
         Up,
 
-        ///// <summary>
-        ///// 下方向(追加予定)
-        ///// </summary>
-        //Down,
+        /// <summary>
+        /// 下方向
+        /// </summary>
+        Down,
 
-        ///// <summary>
-        ///// 左方向(追加予定)
-        ///// </summary>
-        //Left,
+        /// <summary>
+        /// 左方向
+        /// </summary>
+        Left,
 
         /// <summary>
         /// 右方向
@@ -78,6 +78,9 @@ public class PhaseManager : MonoBehaviour
     /// </summary>
     Dictionary<ItemCSV, float[]> itemCSV = new Dictionary<ItemCSV, float[]>();
 
+    [SerializeField, Header("方向を順応させるPlayer")]
+    PlayerComponent Player;
+
     [SerializeField, Header("方向の付与対象(背景のスクロールクラス)")]
     BackgroundScroller Background;
 
@@ -87,16 +90,19 @@ public class PhaseManager : MonoBehaviour
         IMGPhaseGauge.fillAmount = 1f;
         IMGPhaseGauge.color = Color.green;
 
-        OriginDirection = (Direction)Random.Range(0, (int)Direction.Right + 1);
-
         LoadCSV();
 
         GenerateHurdle(Direction.Up);
+        GenerateHurdle(Direction.Down);
+        GenerateHurdle(Direction.Left);
         GenerateHurdle(Direction.Right);
+
+        ResetPhase();
 
         SetHurdleParameter();
 
         // 方向付与
+        Player.MoveDirection = OriginDirection;
         Background.ScrollDirection = OriginDirection;
     }
 
@@ -139,13 +145,14 @@ public class PhaseManager : MonoBehaviour
     /// </summary>
     void SetHurdleParameter()
     {
-        // フェーズリセット
+        // タイマーリセット
         timerPhase = itemCSV[ItemCSV.IntervalPhase][(int)OriginDirection];
 
         switch (OriginDirection) {
         default:
             break;
         case Direction.Up:
+        case Direction.Down:
             for (var i = 0; i < hurdles[OriginDirection].Count; i++) {
                 var j = itemCSV[ItemCSV.PositionStartX][(int)OriginDirection] - i * itemCSV[ItemCSV.PositionSpace][(int)OriginDirection];
                 hurdles[OriginDirection][i].transform.position = new Vector3(j, itemCSV[ItemCSV.PositionStartY][(int)OriginDirection]);
@@ -153,6 +160,7 @@ public class PhaseManager : MonoBehaviour
                 hurdles[OriginDirection][i].GetComponent<HurdleComponent>().IntervalMoveStart = itemCSV[ItemCSV.IntervalMoveStart][(int)OriginDirection] + i;
             }
             break;
+        case Direction.Left:
         case Direction.Right:
             for (var i = 0; i < hurdles[OriginDirection].Count; i++) {
                 var j = itemCSV[ItemCSV.PositionStartY][(int)OriginDirection] - i * itemCSV[ItemCSV.PositionSpace][(int)OriginDirection];
@@ -208,6 +216,7 @@ public class PhaseManager : MonoBehaviour
         SetHurdleParameter();
 
         // 方向付与
+        Player.MoveDirection = OriginDirection;
         Background.ScrollDirection = OriginDirection;
     }
 
@@ -228,19 +237,19 @@ public class PhaseManager : MonoBehaviour
 
             // 値の代入
             itemCSV[ItemCSV.NumberOfGenerations] = new float[(int)Direction.Right + 1];
-            itemCSV[ItemCSV.IntervalPhase] = new float[(int)Direction.Right + 1];
+            itemCSV[ItemCSV.IntervalMoveStart] = new float[(int)Direction.Right + 1];
             itemCSV[ItemCSV.PositionStartX] = new float[(int)Direction.Right + 1];
             itemCSV[ItemCSV.PositionStartY] = new float[(int)Direction.Right + 1];
             itemCSV[ItemCSV.PositionSpace] = new float[(int)Direction.Right + 1];
-            itemCSV[ItemCSV.IntervalMoveStart] = new float[(int)Direction.Right + 1];
+            itemCSV[ItemCSV.IntervalPhase] = new float[(int)Direction.Right + 1];
 
             for (var i = 0; i <= (int)Direction.Right; i++) {
                 itemCSV[ItemCSV.NumberOfGenerations][i] = float.Parse(csvData[(int)ItemCSV.NumberOfGenerations][i + 1]);
-                itemCSV[ItemCSV.IntervalPhase][i] = float.Parse(csvData[(int)ItemCSV.IntervalPhase][i + 1]);
+                itemCSV[ItemCSV.IntervalMoveStart][i] = float.Parse(csvData[(int)ItemCSV.IntervalMoveStart][i + 1]);
                 itemCSV[ItemCSV.PositionStartX][i] = float.Parse(csvData[(int)ItemCSV.PositionStartX][i + 1]);
                 itemCSV[ItemCSV.PositionStartY][i] = float.Parse(csvData[(int)ItemCSV.PositionStartY][i + 1]);
                 itemCSV[ItemCSV.PositionSpace][i] = float.Parse(csvData[(int)ItemCSV.PositionSpace][i + 1]);
-                itemCSV[ItemCSV.IntervalMoveStart][i] = float.Parse(csvData[(int)ItemCSV.IntervalMoveStart][i + 1]);
+                itemCSV[ItemCSV.IntervalPhase][i] = float.Parse(csvData[(int)ItemCSV.IntervalPhase][i + 1]);
             }
         }
     }

@@ -15,12 +15,22 @@ public class PlayerComponent : MonoBehaviour
     /// 押下移動量
     /// </summary>
     Vector3 inputMove;
-    
+
+    /// <summary>
+    /// 移動方向を保持する変数
+    /// </summary>
+    public PhaseManager.Direction MoveDirection;
+
     [SerializeField, Header("座標を制限する絶対値")]
     Vector2 POSLimit;
 
     [SerializeField, Header("移動速度")]
     float SpeedMove;
+
+    /// <summary>
+    /// 障害物のタグを照合する時に使う文字列
+    /// </summary>
+    const string Hurdle_Key = "Hurdle";
 
     [SerializeField, Header("弾の発射方向確認用")]
     PhaseManager PM;
@@ -31,7 +41,7 @@ public class PlayerComponent : MonoBehaviour
     /// <summary>
     /// プレイヤーの体力
     /// </summary>
-    int hitPoint;
+    public int HitPoint { get; private set; }
 
     [SerializeField, Header("最大体力")]
     int HitPointMax;
@@ -52,11 +62,28 @@ public class PlayerComponent : MonoBehaviour
 
         // 状態の初期化
         inputMove = Vector3.zero;
-        hitPoint = HitPointMax;
+        HitPoint = HitPointMax;
     }
 
     void Update()
-        => Move();
+    {
+        switch (MoveDirection) {
+        case PhaseManager.Direction.Up:
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), SpeedMove * Time.deltaTime);
+            break;
+        case PhaseManager.Direction.Down:
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 180), SpeedMove * Time.deltaTime);
+            break;
+        case PhaseManager.Direction.Left:
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 90), SpeedMove * Time.deltaTime);
+            break;
+        case PhaseManager.Direction.Right:
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 270), SpeedMove * Time.deltaTime);
+            break;
+        }
+
+        Move();
+    }
 
     // インプットアクションを他の画面で呼び出さないように無効化
     void OnDestroy()
@@ -64,11 +91,11 @@ public class PlayerComponent : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Hurdle")) {
-            hitPoint--;
+        if (collision.CompareTag(Hurdle_Key)) {
+            HitPoint--;
 
             // ゲームオーバー
-            if (hitPoint <= 0) {
+            if (HitPoint <= 0) {
                 GameManager.Instance.ChangeScene = GameManager.StateScene.Result;
             }
         }
