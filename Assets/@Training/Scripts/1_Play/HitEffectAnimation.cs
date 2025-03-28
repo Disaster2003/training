@@ -21,11 +21,6 @@ public class HitEffectAnimation : MonoBehaviour
     [SerializeField, Header("アニメーション間隔")]
     float IntervalAnimationMax = 0.1f;
 
-    /// <summary>
-    /// 死亡フラグ
-    /// </summary>
-    bool isDead;
-
     void Start()
     {
         // 画像の初期化
@@ -34,19 +29,10 @@ public class HitEffectAnimation : MonoBehaviour
 
         // アニメーション間隔の初期化
         intervalAnimation = 0f;
-
-        // 状態の初期化
-        isDead = false;
     }
 
     void Update()
-    {
-        if (isDead) {
-            return;
-        }
-
-        AnimationHitEffect();
-    }
+        => AnimationHitEffect();
 
     /// <summary>
     /// ヒットエフェクトのアニメーションを行う
@@ -64,7 +50,6 @@ public class HitEffectAnimation : MonoBehaviour
         for (var i = 0; i < Explosion.Length; i++) {
             if (hitEffect.sprite == Explosion[i]) {
                 if (i == Explosion.Length - 1) {
-                    isDead = true;
                     Destroy(gameObject);
                     break;
                 } else {
