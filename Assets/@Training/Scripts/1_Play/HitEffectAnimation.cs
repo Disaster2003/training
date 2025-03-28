@@ -50,7 +50,7 @@ public class HitEffectAnimation : MonoBehaviour
         for (var i = 0; i < Explosion.Length; i++) {
             if (hitEffect.sprite == Explosion[i]) {
                 if (i == Explosion.Length - 1) {
-                    Destroy(gameObject);
+                    Destroy(gameObject); // あまりにも短期間でエフェクトを発生させると複数回呼び出される可能性あり
                     break;
                 } else {
                     // 次の画像へ
