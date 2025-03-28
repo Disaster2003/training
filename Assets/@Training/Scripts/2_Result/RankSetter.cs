@@ -33,6 +33,11 @@ public class RankSetter : MonoBehaviour
     /// </summary>
     const string Rank1_Score_Key = "Rank1";
 
+    /// <summary>
+    /// プレイヤーのゲームオーバースコア / ランキングが0記録スコアを表すテキスト
+    /// </summary>
+    const string Over_And_Reset_Score = "_._s";
+
     void Start()
     {
         CallRankData();
@@ -45,7 +50,7 @@ public class RankSetter : MonoBehaviour
         if (Keyboard.current.escapeKey.wasPressedThisFrame) {
             for (var i = 0; i < TXTRankingScore.Length; i++) {
                 scoreRank[i + 1] = 0f;
-                TXTRankingScore[i].text = $"{i + 1} | _._s";
+                TXTRankingScore[i].text = $"{i + 1} | {Over_And_Reset_Score}";
             }
 
             // データ領域のリセット
@@ -64,7 +69,7 @@ public class RankSetter : MonoBehaviour
         scorePlayer = PlayerPrefs.GetFloat(Player_Score_Key);
 
         if (scorePlayer <= 0f) {
-            TXTPlayerScore.text = "_._s";
+            TXTPlayerScore.text = Over_And_Reset_Score;
         } else {
             TXTPlayerScore.text = $"{scorePlayer:f1}s";
         }
@@ -122,7 +127,7 @@ public class RankSetter : MonoBehaviour
         // テキストに表示
         for (var i = 0; i < TXTRankingScore.Length; i++) {
             if (scoreRank[i + 1] == 0f) {
-                TXTRankingScore[i].text = $"{i + 1} | _._s";
+                TXTRankingScore[i].text = $"{i + 1} | {Over_And_Reset_Score}";
             } else {
                 TXTRankingScore[i].text = $"{i + 1} | {scoreRank[i + 1]:f1}s";
 
