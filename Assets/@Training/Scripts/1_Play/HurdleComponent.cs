@@ -121,7 +121,7 @@ public class HurdleComponent : MonoBehaviour
             break;
         case PhaseManager.Direction.Right:
             // sin波の基準y座標決定
-            if(Mathf.Abs(transform.position.y) == POSDecideY) {
+            if (Mathf.Abs(transform.position.y) == POSDecideY) {
                 POSStartY = transform.position.y;
             }
 

@@ -25,7 +25,6 @@ public class PlayerComponent : MonoBehaviour
     Vector2 POSLimit;
 
     [SerializeField, Header("移動速度")]
-
     float SpeedMove;
 
     /// <summary>
