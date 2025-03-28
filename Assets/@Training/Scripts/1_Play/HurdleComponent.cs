@@ -57,6 +57,9 @@ public class HurdleComponent : MonoBehaviour
     /// </summary>
     const string Bullet_Key = "Bullet";
 
+    [SerializeField, Header("ヒットエフェクトの複製元")]
+    GameObject HitEffect;
+
     void Start()
     {
         MakeWeightless();
@@ -74,9 +77,13 @@ public class HurdleComponent : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag(Bullet_Key)) {
+            Destroy(collision.gameObject);
             hitPoint--;
 
             if (hitPoint <= 0) {
+                // ヒットエフェクトの発生
+                Instantiate(HitEffect, transform.position, Quaternion.identity);
+
                 Destroy(gameObject);
             }
         }
@@ -121,7 +128,7 @@ public class HurdleComponent : MonoBehaviour
             break;
         case PhaseManager.Direction.Right:
             // sin波の基準y座標決定
-            if(Mathf.Abs(transform.position.y) == POSDecideY) {
+            if (Mathf.Abs(transform.position.y) == POSDecideY) {
                 POSStartY = transform.position.y;
             }
 

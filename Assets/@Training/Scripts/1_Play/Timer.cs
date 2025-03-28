@@ -37,8 +37,5 @@ public class Timer : MonoBehaviour
     /// タイマーを終了する
     /// </summary>
     public void FinishTimer()
-    {
-        // ランキング用にタイムを保存し、ゲーム終了
-        PlayerPrefs.SetFloat(Player_Score_Key, timer);
-    }
+        => PlayerPrefs.SetFloat(Player_Score_Key, timer); // ランキング用にタイムを保存し、ゲーム終了
 }

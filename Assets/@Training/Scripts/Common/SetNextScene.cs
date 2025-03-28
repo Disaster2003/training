@@ -10,7 +10,10 @@ public class SetNextScene : MonoBehaviour
     Button BTNNextScene;
 
     [SerializeField, Header("次に遷移したい画面")]
-    GameManager.StateScene StateSceneVAR;
+    GameManager.StateScene StateScene;
+
+    [SerializeField, Header("ゲームオーバー時に使用するフェードパネル")]
+    Fade PanelFade;
 
     void Start()
         => BTNNextScene.onClick.AddListener(OnStartSelectScene);
@@ -19,5 +22,8 @@ public class SetNextScene : MonoBehaviour
     /// 画面遷移を開始する
     /// </summary>
     void OnStartSelectScene()
-        => GameManager.Instance.ChangeScene = StateSceneVAR;
+    {
+        PanelFade.StateScene = StateScene;
+        PanelFade.StartedFade = true;
+    }
 }

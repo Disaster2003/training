@@ -26,7 +26,7 @@ public class BackgroundScroller : MonoBehaviour
         // 背景のスクロール方向を決定
         Vector2 scrollVector;
 
-        switch(ScrollDirection) {
+        switch (ScrollDirection) {
         default:
             scrollVector = Vector2.zero;
             break;

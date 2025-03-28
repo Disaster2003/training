@@ -59,7 +59,7 @@ public class HeartAnimation : MonoBehaviour
         for (var i = 0; i < spritesHeart.Length; i++) {
             if (IMGHeart.sprite == spritesHeart[i]) {
                 if (i == spritesHeart.Length - 1) {
-                    if(spritesHeart == HeartBreak) {
+                    if (spritesHeart == HeartBreak) {
                         Destroy(gameObject);
                         break;
                     }
