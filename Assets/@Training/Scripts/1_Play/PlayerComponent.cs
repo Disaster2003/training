@@ -25,7 +25,13 @@ public class PlayerComponent : MonoBehaviour
     Vector2 POSLimit;
 
     [SerializeField, Header("移動速度")]
+
     float SpeedMove;
+
+    /// <summary>
+    /// 障害物のタグを照合する時に使う文字列
+    /// </summary>
+    const string Hurdle_Key = "Hurdle";
 
     [SerializeField, Header("弾の発射方向確認用")]
     PhaseManager PM;
@@ -86,7 +92,7 @@ public class PlayerComponent : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Hurdle")) {
+        if (collision.CompareTag(Hurdle_Key)) {
             HitPoint--;
 
             // ゲームオーバー

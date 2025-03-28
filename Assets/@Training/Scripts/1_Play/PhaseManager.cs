@@ -59,9 +59,6 @@ public class PhaseManager : MonoBehaviour
     /// </summary>
     Dictionary<Direction, List<GameObject>> hurdles = new Dictionary<Direction, List<GameObject>>();
 
-    [SerializeField, Header("各フェーズの間隔")]
-    float IntervalPhase;
-
     /// <summary>
     /// CSV化する項目
     /// </summary>
@@ -73,6 +70,7 @@ public class PhaseManager : MonoBehaviour
         PositionStartX,
         PositionStartY,
         PositionSpace,
+        IntervalPhase,
     }
 
     /// <summary>
@@ -92,14 +90,14 @@ public class PhaseManager : MonoBehaviour
         IMGPhaseGauge.fillAmount = 1f;
         IMGPhaseGauge.color = Color.green;
 
-        OriginDirection = (Direction)Random.Range(0, (int)Direction.Right + 1);
-
         LoadCSV();
 
         GenerateHurdle(Direction.Up);
         GenerateHurdle(Direction.Down);
         GenerateHurdle(Direction.Left);
         GenerateHurdle(Direction.Right);
+
+        ResetPhase();
 
         SetHurdleParameter();
 
@@ -114,7 +112,7 @@ public class PhaseManager : MonoBehaviour
         // fillAmountの上限は1なので、
         // 色の処理: 1-0.5は緑から黄、0.5-0は黄から赤
         timerPhase -= Time.deltaTime;
-        var ratioPhase = timerPhase / IntervalPhase;
+        var ratioPhase = timerPhase / itemCSV[ItemCSV.IntervalPhase][(int)OriginDirection];
         IMGPhaseGauge.fillAmount = ratioPhase;
 
         if (ratioPhase < 0.5f) {
@@ -147,6 +145,9 @@ public class PhaseManager : MonoBehaviour
     /// </summary>
     void SetHurdleParameter()
     {
+        // タイマーリセット
+        timerPhase = itemCSV[ItemCSV.IntervalPhase][(int)OriginDirection];
+
         switch (OriginDirection) {
         default:
             break;
@@ -176,9 +177,6 @@ public class PhaseManager : MonoBehaviour
     /// </summary>
     void ResetPhase()
     {
-        // フェーズリセット
-        timerPhase = IntervalPhase;
-
         // 有効な方向の確認
         var validDirections = new List<Direction>();
 
@@ -239,17 +237,19 @@ public class PhaseManager : MonoBehaviour
 
             // 値の代入
             itemCSV[ItemCSV.NumberOfGenerations] = new float[(int)Direction.Right + 1];
+            itemCSV[ItemCSV.IntervalMoveStart] = new float[(int)Direction.Right + 1];
             itemCSV[ItemCSV.PositionStartX] = new float[(int)Direction.Right + 1];
             itemCSV[ItemCSV.PositionStartY] = new float[(int)Direction.Right + 1];
             itemCSV[ItemCSV.PositionSpace] = new float[(int)Direction.Right + 1];
-            itemCSV[ItemCSV.IntervalMoveStart] = new float[(int)Direction.Right + 1];
+            itemCSV[ItemCSV.IntervalPhase] = new float[(int)Direction.Right + 1];
 
             for (var i = 0; i <= (int)Direction.Right; i++) {
                 itemCSV[ItemCSV.NumberOfGenerations][i] = float.Parse(csvData[(int)ItemCSV.NumberOfGenerations][i + 1]);
+                itemCSV[ItemCSV.IntervalMoveStart][i] = float.Parse(csvData[(int)ItemCSV.IntervalMoveStart][i + 1]);
                 itemCSV[ItemCSV.PositionStartX][i] = float.Parse(csvData[(int)ItemCSV.PositionStartX][i + 1]);
                 itemCSV[ItemCSV.PositionStartY][i] = float.Parse(csvData[(int)ItemCSV.PositionStartY][i + 1]);
                 itemCSV[ItemCSV.PositionSpace][i] = float.Parse(csvData[(int)ItemCSV.PositionSpace][i + 1]);
-                itemCSV[ItemCSV.IntervalMoveStart][i] = float.Parse(csvData[(int)ItemCSV.IntervalMoveStart][i + 1]);
+                itemCSV[ItemCSV.IntervalPhase][i] = float.Parse(csvData[(int)ItemCSV.IntervalPhase][i + 1]);
             }
         }
     }

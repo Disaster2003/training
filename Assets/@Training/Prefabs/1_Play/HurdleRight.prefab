@@ -179,7 +179,8 @@ MonoBehaviour:
   RB2D: {fileID: 8331101277196446589}
   POSGoal: {x: 10, y: 6}
   WidthSin: 2
-  SpeedSin: 0.5
+  SpeedSin: 2
+  POSDecideY: 2.5
   SpeedMove: 5
   IntervalMoveStart: 0
   HitPointMax: 10

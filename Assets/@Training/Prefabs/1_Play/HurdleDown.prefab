@@ -175,10 +175,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eb599ed0e62a944db860cb724215ab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveDirection: 0
+  MoveDirection: 1
   RB2D: {fileID: 8331101277196446589}
   POSGoal: {x: 10, y: 6}
-  WidthSin: 2
-  SpeedSin: 1
+  WidthSin: 4
+  SpeedSin: 5
+  POSDecideX: 5
+  POSDecideY: 0
+  SpeedMove: 3
   IntervalMoveStart: 0
   HitPointMax: 5
