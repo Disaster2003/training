@@ -2,7 +2,7 @@
  Work Name
  作成期間　：5日
  Time Frame
- ジャンル  ：シューティング
+ ジャンル  ：2Dシューティング
  Genre
  所要時間  ：3分
  Travel time
@@ -66,6 +66,7 @@ Undertaleライク
  力をいれて作った部分で、「プログラム上」で特に注意してみてもらいたい所は？
  What points do you want us particulary focus on your work?
 -----------------------------------------------------------------------------
+InputSystemの導入
 ランキング
 csv導入
 
