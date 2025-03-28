@@ -88,9 +88,11 @@ public class RankSetter : MonoBehaviour
 
         for (int i = scoreRank.Length - 1; i > 0; i--) {
             // 昇順 1...5
-            if (scoreRank[i] == 0f || scoreRank[i] >= scorePlayer) {
-                // ランク番号の記録
-                rankNew = i;
+            if (scorePlayer != 0f) {
+                if (scoreRank[i] == 0f || scoreRank[i] >= scorePlayer) {
+                    // ランク番号の記録
+                    rankNew = i;
+                }
             }
         }
 

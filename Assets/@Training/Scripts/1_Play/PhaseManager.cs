@@ -84,6 +84,9 @@ public class PhaseManager : MonoBehaviour
     [SerializeField, Header("方向の付与対象(背景のスクロールクラス)")]
     BackgroundScroller Background;
 
+    [SerializeField, Header("ゲームクリア時に使用するフェードパネル")]
+    Fade PanelFade;
+
     void Start()
     {
         // フェーズ表示の初期化
@@ -195,7 +198,8 @@ public class PhaseManager : MonoBehaviour
         // 有効な方向がない場合はゲームクリア
         if (!validDirections.Any()) {
             TXTTimer.FinishTimer();
-            GameManager.Instance.ChangeScene = GameManager.StateScene.Result;
+            PanelFade.StateScene = GameManager.StateScene.Result;
+            PanelFade.StartedFade = true;
             return;
         }
 

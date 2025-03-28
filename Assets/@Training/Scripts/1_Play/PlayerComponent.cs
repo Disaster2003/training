@@ -46,6 +46,12 @@ public class PlayerComponent : MonoBehaviour
     [SerializeField, Header("最大体力")]
     int HitPointMax;
 
+    [SerializeField, Header("ヒットエフェクトの複製元")]
+    GameObject HitEffect;
+
+    [SerializeField, Header("ゲームオーバー時に使用するフェードパネル")]
+    Fade PanelFade;
+
     void Start()
     {
         // インプットアクションを取得
@@ -67,6 +73,11 @@ public class PlayerComponent : MonoBehaviour
 
     void Update()
     {
+        // 無限ヒール(デバッグ用)
+        if (Keyboard.current.escapeKey.wasPressedThisFrame) {
+            HitPoint = HitPointMax;
+        }
+
         switch (MoveDirection) {
         case PhaseManager.Direction.Up:
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), SpeedMove * Time.deltaTime);
@@ -96,7 +107,11 @@ public class PlayerComponent : MonoBehaviour
 
             // ゲームオーバー
             if (HitPoint <= 0) {
-                GameManager.Instance.ChangeScene = GameManager.StateScene.Result;
+                PanelFade.StateScene = GameManager.StateScene.Result;
+                PanelFade.StartedFade = true;
+            } else {
+                // ヒットエフェクトの発生
+                Instantiate(HitEffect, transform.position, Quaternion.identity);
             }
         }
     }

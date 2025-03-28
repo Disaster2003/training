@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 体力アニメーションクラス
+/// </summary>
 public class HeartAnimation : MonoBehaviour
 {
     /// <summary>
