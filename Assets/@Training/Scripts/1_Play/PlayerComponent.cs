@@ -67,7 +67,7 @@ public class PlayerComponent : MonoBehaviour
 
     void Update()
     {
-        switch(MoveDirection) {
+        switch (MoveDirection) {
         case PhaseManager.Direction.Up:
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), SpeedMove * Time.deltaTime);
             break;
