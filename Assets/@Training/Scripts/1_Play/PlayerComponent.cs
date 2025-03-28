@@ -17,9 +17,9 @@ public class PlayerComponent : MonoBehaviour
     Vector3 inputMove;
 
     /// <summary>
-    /// 移動方向を保持する変数
+    /// 回転方向を保持する変数
     /// </summary>
-    public PhaseManager.Direction MoveDirection;
+    public PhaseManager.Direction RotateDirection;
 
     [SerializeField, Header("座標を制限する絶対値")]
     Vector2 POSLimit;
@@ -78,7 +78,7 @@ public class PlayerComponent : MonoBehaviour
             HitPoint = HitPointMax;
         }
 
-        switch (MoveDirection) {
+        switch (RotateDirection) {
         case PhaseManager.Direction.Up:
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), SpeedMove * Time.deltaTime);
             break;

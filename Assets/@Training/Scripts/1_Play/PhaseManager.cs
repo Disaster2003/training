@@ -84,6 +84,9 @@ public class PhaseManager : MonoBehaviour
     [SerializeField, Header("方向の付与対象(背景のスクロールクラス)")]
     BackgroundScroller Background;
 
+    [SerializeField, Header("方向の付与対象(背景のスクロールクラス)")]
+    CameraRotater MainCamera;
+
     [SerializeField, Header("ゲームクリア時に使用するフェードパネル")]
     Fade PanelFade;
 
@@ -105,8 +108,9 @@ public class PhaseManager : MonoBehaviour
         SetHurdleParameter();
 
         // 方向付与
-        Player.MoveDirection = OriginDirection;
+        Player.RotateDirection = OriginDirection;
         Background.ScrollDirection = OriginDirection;
+        MainCamera.RotateDirection = OriginDirection;
     }
 
     void Update()
@@ -220,8 +224,9 @@ public class PhaseManager : MonoBehaviour
         SetHurdleParameter();
 
         // 方向付与
-        Player.MoveDirection = OriginDirection;
+        Player.RotateDirection = OriginDirection;
         Background.ScrollDirection = OriginDirection;
+        MainCamera.RotateDirection = OriginDirection;
     }
 
     /// <summary>
