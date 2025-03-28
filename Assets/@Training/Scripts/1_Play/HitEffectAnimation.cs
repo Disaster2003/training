@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// ヒットエフェクトのアニメーションクラス
+/// </summary>
 public class HitEffectAnimation : MonoBehaviour
 {
     /// <summary>

@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// フェード用クラス
+/// </summary>
 public class Fade : MonoBehaviour
 {
     [SerializeField, Header("フェード画像")]
