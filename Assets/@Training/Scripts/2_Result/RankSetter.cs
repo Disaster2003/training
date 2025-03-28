@@ -62,11 +62,13 @@ public class RankSetter : MonoBehaviour
     {
         // プレイヤーのスコアを呼び出す
         scorePlayer = PlayerPrefs.GetFloat(Player_Score_Key);
+
         if (scorePlayer <= 0f) {
             TXTPlayerScore.text = "_._s";
         } else {
             TXTPlayerScore.text = $"{scorePlayer:f1}s";
         }
+
         TXTPlayerScore.color = Color.red;
 
         if (PlayerPrefs.HasKey(Rank1_Score_Key)) {
