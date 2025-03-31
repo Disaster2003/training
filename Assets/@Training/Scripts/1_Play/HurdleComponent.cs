@@ -57,8 +57,10 @@ public class HurdleComponent : MonoBehaviour
     /// </summary>
     const string Bullet_Key = "Bullet";
 
-    [SerializeField, Header("ヒットエフェクトの複製元")]
-    GameObject HitEffect;
+    /// <summary>
+    /// ヒットエフェクト用変数
+    /// </summary>
+    HitEffectAnimation hitEffectAnimation;
 
     void Start()
     {
@@ -66,10 +68,18 @@ public class HurdleComponent : MonoBehaviour
 
         // 状態の初期化
         hitPoint = HitPointMax;
+        hitEffectAnimation = GetComponent<HitEffectAnimation>();
     }
 
     void Update()
-        => Move();
+    {
+        // 自身をヒットエフェクト化
+        if (hitEffectAnimation.enabled) {
+            return;
+        }
+
+        Move();
+    }
 
     void OnEnable()
         => MakeWeightless();
@@ -77,14 +87,13 @@ public class HurdleComponent : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag(Bullet_Key)) {
-            Destroy(collision.gameObject);
             hitPoint--;
 
             if (hitPoint <= 0) {
-                // ヒットエフェクトの発生
-                Instantiate(HitEffect, transform.position, Quaternion.identity);
-
-                Destroy(gameObject);
+                GetComponent<BoxCollider2D>().enabled = false;
+                RB2D.bodyType = RigidbodyType2D.Kinematic;
+                RB2D.linearVelocity = Vector2.zero;
+                hitEffectAnimation.enabled = true;
             }
         }
     }
