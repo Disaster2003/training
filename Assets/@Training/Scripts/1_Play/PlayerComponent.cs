@@ -164,7 +164,7 @@ public class PlayerComponent : MonoBehaviour
     /// </summary>
     IEnumerator CameraShake()
     {
-        for (int i = 0; i < 50; i++) {
+        for (var i = 0; i < 50; i++) {
             MainCamera.transform.Translate(moveCameraPOSX, 0, 0);
             moveCameraPOSX *= -1;
             yield return new WaitForSeconds(0.01f);
