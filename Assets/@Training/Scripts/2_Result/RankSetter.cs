@@ -38,6 +38,12 @@ public class RankSetter : MonoBehaviour
     /// </summary>
     const string Over_And_Zero_Score = "_._s";
 
+    [SerializeField, Header("ゲームクリア時の効果音")]
+    AudioClip GameClearSE;
+
+    [SerializeField, Header("ゲームクリア時の効果音")]
+    AudioClip GameOverSE;
+
     void Start()
     {
         CallRankData();
@@ -70,8 +76,12 @@ public class RankSetter : MonoBehaviour
 
         if (scorePlayer <= 0f) {
             TXTPlayerScore.text = Over_And_Zero_Score;
+
+            GameManager.Instance.PlaySE = GameOverSE;
         } else {
             TXTPlayerScore.text = $"{scorePlayer:f1}s";
+
+            GameManager.Instance.PlaySE = GameClearSE;
         }
 
         TXTPlayerScore.color = Color.red;

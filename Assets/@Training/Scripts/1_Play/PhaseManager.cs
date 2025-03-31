@@ -96,6 +96,9 @@ public class PhaseManager : MonoBehaviour
     [SerializeField, Header("フェーズ切り替え時に表示するクエスチョンマーク")]
     GameObject[] IMGsQuestion;
 
+    [SerializeField, Header("フェーズ切り替え時の効果音")]
+    AudioClip PhaseChangeSE;
+
     void Start()
     {
         // フェーズ表示の初期化
@@ -238,6 +241,9 @@ public class PhaseManager : MonoBehaviour
         SetHurdleParameter();
 
         GiveDirection();
+        
+        // フェーズ切り替え成功音
+        GameManager.Instance.PlaySE = PhaseChangeSE;
     }
 
     /// <summary>

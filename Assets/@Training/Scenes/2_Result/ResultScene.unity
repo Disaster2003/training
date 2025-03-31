@@ -816,6 +816,8 @@ MonoBehaviour:
   - {fileID: 259119758}
   - {fileID: 1111875282}
   - {fileID: 455002013}
+  GameClearSE: {fileID: 8300000, guid: 2d73534ac791e2b4e96551a3bfb8e719, type: 3}
+  GameOverSE: {fileID: 8300000, guid: 56c7db31ba7507a48bcf5fd945a5c541, type: 3}
 --- !u!1001 &779771918
 PrefabInstance:
   m_ObjectHideFlags: 0

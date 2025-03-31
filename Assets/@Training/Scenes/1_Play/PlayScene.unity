@@ -471,7 +471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4617473412009924507, guid: daa9329c3aeab104d89e78ea7e422cb5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7606319560442251262, guid: daa9329c3aeab104d89e78ea7e422cb5, type: 3}
       propertyPath: m_Pivot.x
@@ -607,7 +607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   POSLimit:
-  - {x: 7.5, y: 3.5}
+  - {x: 6.5, y: 3.5}
   - {x: 7, y: 3}
   SpeedMove: 10
   PM: {fileID: 1204578371}
@@ -615,6 +615,7 @@ MonoBehaviour:
   HitPointMax: 3
   HitEffect: {fileID: 7472799212724812147, guid: 888544e5cb571db41b016cc5f16eaa69, type: 3}
   PanelFade: {fileID: 486711157}
+  MainCamera: {fileID: 2097546890}
 --- !u!212 &776821317
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1088,6 +1089,7 @@ MonoBehaviour:
   - {fileID: 988194672}
   - {fileID: 147939719}
   - {fileID: 1324405747}
+  PhaseChangeSE: {fileID: 8300000, guid: 2ef959ead7419ee499d9191db256fccf, type: 3}
 --- !u!1 &1324405747 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2332867781088184832, guid: 952caec46e063a94499a5383d0883d6e, type: 3}

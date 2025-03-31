@@ -62,6 +62,13 @@ public class HurdleComponent : MonoBehaviour
     /// </summary>
     HitEffectAnimation hitEffectAnimation;
 
+    [SerializeField, Header("ダメージ時の効果音")]
+    AudioClip DamageSE;
+
+    [SerializeField, Header("死亡時の効果音")]
+    AudioClip DeadSE;
+
+
     void Start()
     {
         MakeWeightless();
@@ -94,6 +101,10 @@ public class HurdleComponent : MonoBehaviour
                 RB2D.bodyType = RigidbodyType2D.Kinematic;
                 RB2D.linearVelocity = Vector2.zero;
                 hitEffectAnimation.enabled = true;
+
+                GameManager.Instance.PlaySE = DeadSE;
+            } else {
+                GameManager.Instance.PlaySE = DamageSE;
             }
         }
     }

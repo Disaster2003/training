@@ -42,6 +42,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     StateScene stateScene;
 
+    /// <summary>
+    /// 効果音を再生する用の変数
+    /// </summary>
+    AudioSource audioSource;
+
     void Start()
     {
         if (instance == null) {
@@ -57,6 +62,7 @@ public class GameManager : MonoBehaviour
 
         // 状態の初期化
         stateScene = (StateScene)SceneManager.GetActiveScene().buildIndex;
+        audioSource = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -68,5 +74,13 @@ public class GameManager : MonoBehaviour
             stateScene = value;
             SceneManager.LoadScene((int)stateScene);
         }
+    }
+
+    /// <summary>
+    /// 効果音を再生する
+    /// </summary>
+    public AudioClip PlaySE
+    {
+        set => audioSource.PlayOneShot(value);
     }
 }
