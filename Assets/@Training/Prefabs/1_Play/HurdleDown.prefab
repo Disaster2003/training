@@ -178,9 +178,9 @@ MonoBehaviour:
   MoveDirection: 1
   RB2D: {fileID: 8331101277196446589}
   POSGoal: {x: 10, y: 6}
-  WidthSin: 4
+  WidthSin: 3
   SpeedSin: 5
-  POSDecideX: 5
+  POSDecideX: 3
   POSDecideY: 0
   SpeedMove: 3
   IntervalMoveStart: 0

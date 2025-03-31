@@ -78,17 +78,23 @@ public class PhaseManager : MonoBehaviour
     /// </summary>
     Dictionary<ItemCSV, float[]> itemCSV = new Dictionary<ItemCSV, float[]>();
 
-    [SerializeField, Header("方向を順応させるPlayer")]
-    PlayerComponent Player;
+    [SerializeField, Header("方向の付与対象(プレイヤー)")]
+    GameObject Player;
+
+    [SerializeField, Header("各フェーズのプレイヤー開始地点(上下左右)")]
+    Vector3[] POSPlayerStart;
 
     [SerializeField, Header("方向の付与対象(背景のスクロールクラス)")]
     BackgroundScroller Background;
 
-    [SerializeField, Header("方向の付与対象(背景のスクロールクラス)")]
-    CameraRotater MainCamera;
-
     [SerializeField, Header("ゲームクリア時に使用するフェードパネル")]
     Fade PanelFade;
+
+    [SerializeField, Header("画面を隠す画像群")]
+    Image[] IMGsScreenHide;
+
+    [SerializeField, Header("フェーズ切り替え時に表示するクエスチョンマーク")]
+    GameObject[] IMGsQuestion;
 
     void Start()
     {
@@ -104,13 +110,6 @@ public class PhaseManager : MonoBehaviour
         GenerateHurdle(Direction.Right);
 
         ResetPhase();
-
-        SetHurdleParameter();
-
-        // 方向付与
-        Player.RotateDirection = OriginDirection;
-        Background.ScrollDirection = OriginDirection;
-        MainCamera.RotateDirection = OriginDirection;
     }
 
     void Update()
@@ -166,6 +165,11 @@ public class PhaseManager : MonoBehaviour
                 hurdles[OriginDirection][i].GetComponent<HurdleComponent>().enabled = true;
                 hurdles[OriginDirection][i].GetComponent<HurdleComponent>().IntervalMoveStart = itemCSV[ItemCSV.IntervalMoveStart][(int)OriginDirection] + i;
             }
+
+            IMGsScreenHide[(int)Direction.Up].enabled = true;
+            IMGsScreenHide[(int)Direction.Down].enabled = true;
+            IMGsScreenHide[(int)Direction.Left].enabled = false;
+            IMGsScreenHide[(int)Direction.Right].enabled = false;
             break;
         case Direction.Left:
         case Direction.Right:
@@ -175,7 +179,17 @@ public class PhaseManager : MonoBehaviour
                 hurdles[OriginDirection][i].GetComponent<HurdleComponent>().enabled = true;
                 hurdles[OriginDirection][i].GetComponent<HurdleComponent>().IntervalMoveStart = itemCSV[ItemCSV.IntervalMoveStart][(int)OriginDirection];
             }
+
+            IMGsScreenHide[(int)Direction.Up].enabled = false;
+            IMGsScreenHide[(int)Direction.Down].enabled = false;
+            IMGsScreenHide[(int)Direction.Left].enabled = true;
+            IMGsScreenHide[(int)Direction.Right].enabled = true;
             break;
+        }
+
+        foreach (var go in IMGsQuestion) {
+            go.GetComponent<Image>().enabled = true;
+            go.GetComponent<QuestionAnimation>().enabled = true;
         }
     }
 
@@ -223,10 +237,17 @@ public class PhaseManager : MonoBehaviour
 
         SetHurdleParameter();
 
-        // 方向付与
-        Player.RotateDirection = OriginDirection;
+        GiveDirection();
+    }
+
+    /// <summary>
+    /// 各項目に方向を付与する
+    /// </summary>
+    void GiveDirection()
+    {
+        Player.transform.position = POSPlayerStart[(int)OriginDirection];
+        Player.GetComponent<DirectionRotator>().RotateDirection = OriginDirection;
         Background.ScrollDirection = OriginDirection;
-        MainCamera.RotateDirection = OriginDirection;
     }
 
     /// <summary>

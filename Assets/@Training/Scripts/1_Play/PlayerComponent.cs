@@ -16,13 +16,8 @@ public class PlayerComponent : MonoBehaviour
     /// </summary>
     Vector3 inputMove;
 
-    /// <summary>
-    /// 回転方向を保持する変数
-    /// </summary>
-    public PhaseManager.Direction RotateDirection;
-
-    [SerializeField, Header("座標を制限する絶対値")]
-    Vector2 POSLimit;
+    [SerializeField, Header("座標を制限する絶対値(配列0番目:上下、1番目:左右)")]
+    Vector2[] POSLimit = new Vector2[2];
 
     [SerializeField, Header("移動速度")]
     float SpeedMove;
@@ -78,22 +73,29 @@ public class PlayerComponent : MonoBehaviour
             HitPoint = HitPointMax;
         }
 
-        switch (RotateDirection) {
+        Move();
+
+        // 移動制限
+        switch (PM.OriginDirection) {
         case PhaseManager.Direction.Up:
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), SpeedMove * Time.deltaTime);
-            break;
         case PhaseManager.Direction.Down:
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 180), SpeedMove * Time.deltaTime);
+            transform.position =
+                new Vector2
+                (
+                    Mathf.Clamp(transform.position.x, -POSLimit[0].x, POSLimit[0].x),
+                    Mathf.Clamp(transform.position.y, -POSLimit[0].y, POSLimit[0].y)
+                );
             break;
         case PhaseManager.Direction.Left:
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 90), SpeedMove * Time.deltaTime);
-            break;
         case PhaseManager.Direction.Right:
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 270), SpeedMove * Time.deltaTime);
+            transform.position =
+                new Vector2
+                (
+                    Mathf.Clamp(transform.position.x, -POSLimit[1].x, POSLimit[1].x),
+                    Mathf.Clamp(transform.position.y, -POSLimit[1].y, POSLimit[1].y)
+                );
             break;
         }
-
-        Move();
     }
 
     // インプットアクションを他の画面で呼び出さないように無効化
@@ -132,14 +134,6 @@ public class PlayerComponent : MonoBehaviour
 
         // 入力方向への移動
         transform.position += inputMove.normalized * SpeedMove * Time.deltaTime;
-
-        // 移動制限
-        transform.position =
-            new Vector2
-            (
-                Mathf.Clamp(transform.position.x, -POSLimit.x, POSLimit.x),
-                Mathf.Clamp(transform.position.y, -POSLimit.y, POSLimit.y)
-            );
     }
 
     /// <summary>

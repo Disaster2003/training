@@ -184,5 +184,5 @@ MonoBehaviour:
   POSDecideY: 0
   SpeedMove: 10
   IntervalMoveStart: 0
-  HitPointMax: 10
+  HitPointMax: 5
   HitEffect: {fileID: 7472799212724812147, guid: 888544e5cb571db41b016cc5f16eaa69, type: 3}
