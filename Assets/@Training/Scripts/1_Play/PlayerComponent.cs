@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -47,6 +48,14 @@ public class PlayerComponent : MonoBehaviour
     [SerializeField, Header("ゲームオーバー時に使用するフェードパネル")]
     Fade PanelFade;
 
+    [SerializeField, Header("MainCamera")]
+    GameObject MainCamera;
+
+    /// <summary>
+    /// カメラの動かすX座標
+    /// </summary>
+    float moveCameraPOSX;
+
     void Start()
     {
         // インプットアクションを取得
@@ -64,6 +73,7 @@ public class PlayerComponent : MonoBehaviour
         // 状態の初期化
         inputMove = Vector3.zero;
         HitPoint = HitPointMax;
+        moveCameraPOSX = 1f;
     }
 
     void Update()
@@ -77,6 +87,8 @@ public class PlayerComponent : MonoBehaviour
 
         // 移動制限
         switch (PM.OriginDirection) {
+        default:
+            break;
         case PhaseManager.Direction.Up:
         case PhaseManager.Direction.Down:
             transform.position =
@@ -106,6 +118,7 @@ public class PlayerComponent : MonoBehaviour
     {
         if (collision.CompareTag(Hurdle_Key)) {
             HitPoint--;
+            StartCoroutine(CameraShake());
 
             // ゲームオーバー
             if (HitPoint <= 0) {
@@ -144,5 +157,17 @@ public class PlayerComponent : MonoBehaviour
     {
         var bullet = Instantiate(Bullet, transform.position, Quaternion.identity);
         bullet.GetComponent<BulletMover>().MoveDirection = PM.OriginDirection;
+    }
+
+    /// <summary>
+    /// カメラを振動させる
+    /// </summary>
+    IEnumerator CameraShake()
+    {
+        for (int i = 0; i < 50; i++) {
+            MainCamera.transform.Translate(moveCameraPOSX, 0, 0);
+            moveCameraPOSX *= -1;
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 }
