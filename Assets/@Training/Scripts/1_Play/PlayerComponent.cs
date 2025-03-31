@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,13 +17,8 @@ public class PlayerComponent : MonoBehaviour
     /// </summary>
     Vector3 inputMove;
 
-    /// <summary>
-    /// 移動方向を保持する変数
-    /// </summary>
-    public PhaseManager.Direction MoveDirection;
-
-    [SerializeField, Header("座標を制限する絶対値")]
-    Vector2 POSLimit;
+    [SerializeField, Header("座標を制限する絶対値(配列0番目:上下、1番目:左右)")]
+    Vector2[] POSLimit = new Vector2[2];
 
     [SerializeField, Header("移動速度")]
     float SpeedMove;
@@ -52,6 +48,14 @@ public class PlayerComponent : MonoBehaviour
     [SerializeField, Header("ゲームオーバー時に使用するフェードパネル")]
     Fade PanelFade;
 
+    [SerializeField, Header("MainCamera")]
+    GameObject MainCamera;
+
+    /// <summary>
+    /// カメラの動かすX座標
+    /// </summary>
+    float moveCameraPOSX;
+
     void Start()
     {
         // インプットアクションを取得
@@ -69,6 +73,7 @@ public class PlayerComponent : MonoBehaviour
         // 状態の初期化
         inputMove = Vector3.zero;
         HitPoint = HitPointMax;
+        moveCameraPOSX = 1f;
     }
 
     void Update()
@@ -78,22 +83,31 @@ public class PlayerComponent : MonoBehaviour
             HitPoint = HitPointMax;
         }
 
-        switch (MoveDirection) {
-        case PhaseManager.Direction.Up:
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), SpeedMove * Time.deltaTime);
+        Move();
+
+        // 移動制限
+        switch (PM.OriginDirection) {
+        default:
             break;
+        case PhaseManager.Direction.Up:
         case PhaseManager.Direction.Down:
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 180), SpeedMove * Time.deltaTime);
+            transform.position =
+                new Vector2
+                (
+                    Mathf.Clamp(transform.position.x, -POSLimit[0].x, POSLimit[0].x),
+                    Mathf.Clamp(transform.position.y, -POSLimit[0].y, POSLimit[0].y)
+                );
             break;
         case PhaseManager.Direction.Left:
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 90), SpeedMove * Time.deltaTime);
-            break;
         case PhaseManager.Direction.Right:
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 270), SpeedMove * Time.deltaTime);
+            transform.position =
+                new Vector2
+                (
+                    Mathf.Clamp(transform.position.x, -POSLimit[1].x, POSLimit[1].x),
+                    Mathf.Clamp(transform.position.y, -POSLimit[1].y, POSLimit[1].y)
+                );
             break;
         }
-
-        Move();
     }
 
     // インプットアクションを他の画面で呼び出さないように無効化
@@ -104,6 +118,7 @@ public class PlayerComponent : MonoBehaviour
     {
         if (collision.CompareTag(Hurdle_Key)) {
             HitPoint--;
+            StartCoroutine(CameraShake());
 
             // ゲームオーバー
             if (HitPoint <= 0) {
@@ -132,14 +147,6 @@ public class PlayerComponent : MonoBehaviour
 
         // 入力方向への移動
         transform.position += inputMove.normalized * SpeedMove * Time.deltaTime;
-
-        // 移動制限
-        transform.position =
-            new Vector2
-            (
-                Mathf.Clamp(transform.position.x, -POSLimit.x, POSLimit.x),
-                Mathf.Clamp(transform.position.y, -POSLimit.y, POSLimit.y)
-            );
     }
 
     /// <summary>
@@ -150,5 +157,17 @@ public class PlayerComponent : MonoBehaviour
     {
         var bullet = Instantiate(Bullet, transform.position, Quaternion.identity);
         bullet.GetComponent<BulletMover>().MoveDirection = PM.OriginDirection;
+    }
+
+    /// <summary>
+    /// カメラを振動させる
+    /// </summary>
+    IEnumerator CameraShake()
+    {
+        for (var i = 0; i < 50; i++) {
+            MainCamera.transform.Translate(moveCameraPOSX, 0, 0);
+            moveCameraPOSX *= -1;
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 }
